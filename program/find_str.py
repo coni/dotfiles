@@ -31,5 +31,6 @@ for root, folders, files in os.walk("."):
         file_text = get_file_text(current_file)
         if file_text != None:
             result = search_string(file_text, string)
-        if result != []:
-            print("%s: in line %s" % (current_file, result))
+            
+            if result != []:
+                print("%s: in line %s" % (current_file, result))
