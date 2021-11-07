@@ -1,2 +1,3 @@
 xsetroot -cursor_name left_ptr
-exec bspwm
+wmname compiz
+exec dwm
