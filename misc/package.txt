@@ -1,2 +1,1 @@
-acpilight wpa_supplicant firefox nautilus deepin-screenshot alacritty code
-picom imlib2
+acpilight wpa_supplicant firefox nautilus deepin-screenshot alacritty code picom feh rofi
