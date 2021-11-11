@@ -1,8 +1,16 @@
+is_battery=false
+if [ -f "$HOME/.local/bin/batterystatus" ]; then
+    is_battery=true
+    echo "oui"
+fi
+
 while true
 do
-date="$(date +"%R")"
-battery="$(batterystatus)"
-string="$battery%   $date"
+string="$(date +"%R")"
+
+if [ $is_battery = true ]; then
+    string="$(batterystatus)%  $string"
+fi
 
 xsetroot -name "$string"
 sleep 2
