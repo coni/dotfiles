@@ -3,9 +3,28 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <dirent.h>
-#include <sys/types.h>
 #include <sys/stat.h>
+#include <time.h>
 
+void get_file(char *path, int index)
+{
+    DIR *d;
+    struct dirent *dir;
+    int counter = 0;
+    if (d = opendir("/home/coni/.config/random-lyrics/")) 
+    {
+        while ((dir = readdir(d)) != NULL) 
+        {
+            if (dir->d_type == DT_REG)
+                {
+                    if (counter == index)
+                        strcat(path, dir->d_name);
+                    counter++;
+                }
+        }
+        closedir(d);
+    }
+}
 
 int number_file(char *path) {
 
@@ -60,50 +79,39 @@ int type_file(const char *path)
 
 int main(int argc, const char *argv[])
 {
-    char filename[100];
+    char filename[255];
     int speed = 2500;
 
-    if (argc > 1) {
-        if (strcmp(argv[1], "-1") != 0)
+    if (argc > 2) {
+        if (strcmp(argv[2], "-1") != 0)
         {
-            speed = strtol(argv[1], NULL, 10);
+            speed = strtol(argv[2], NULL, 10);
         }
     }
 
-    if (argc > 2) 
+    if (argc > 1) 
     {   
-        int type_ = type_file(argv[2]);
+        int type_ = type_file(argv[1]);
         if (type_ == 1)
         {
-            strcpy(filename,argv[2]);
-            char c_random_file[] = " ";
-            int count = number_file(filename);
-            int i_random_file = rand() % count;
-            sprintf(c_random_file, "%d", i_random_file);
-            strcat(filename,c_random_file);
+            srand(time(NULL));
+            strcpy(filename,argv[1]);
+            get_file(filename, rand() % number_file(filename));
         }
         else if (type_ == 2)
         {
-            strcpy(filename,argv[2]);
+            strcpy(filename,argv[1]);
         }
         else
         {
-            printf("%s don't exist\n", argv[2]);
+            printf("%s don't exist\n", argv[1]);
             return 1;
         }
 
-
-    } else {
-        strcpy(filename,"/etc/coni/lyrics/");
-        char c_random_file[] = " ";
-        int count = number_file(filename);
-        int i_random_file = rand() % count;
-        sprintf(c_random_file, "%d", i_random_file);
-        strcat(filename,c_random_file);
+        printing_slowly(filename, speed);
+        printf("\n");
     }
 
-    printing_slowly(filename, speed);
-    printf("\n");
 
     return 0;
 }
