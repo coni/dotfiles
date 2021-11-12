@@ -8,7 +8,7 @@
  */
 
 configuration {
-	font:							"FantasqueSansMono Nerd Font 10";
+	font:							"azukifontB 14";
     show-icons:                     true;
 	icon-theme: 					"Papirus";
     display-drun: 					"";
