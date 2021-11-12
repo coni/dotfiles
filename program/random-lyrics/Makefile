@@ -1,7 +1,7 @@
 SRC = random-lyrics.c
 OPT = random-lyrics
 local_bin = $$HOME/.local/bin/
-sys_bin = /usr/bin
+sys_bin = /usr/local/bin
 
 all:
 	gcc $(SRC) -o $(OPT)
