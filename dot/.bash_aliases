@@ -1,1 +1,2 @@
 alias java16=/home/coni/.gally_launcher/jdk-16.0.1+9-jre/bin/java
+alias hihi="emacs -nw"
