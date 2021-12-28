@@ -4,14 +4,15 @@
 
 # If not running interactively, don't do anything
 
-export PATH=$PATH:$HOME/.local/bin/
+export PATH=$PATH:$HOME/.local/bin/:$HOME/.local/bin/platform-tools/
 export LANG=fr_FR.UTF-8
 export LC_ALL=fr_FR.UTF-8
 export NNN_OPTS="H"
-export EDITOR="emacs -nw"
+export EDITOR="vim"
 export NNN_PLUG='h:preview-tabbed;i:renamer;c:cdpath;a:autojump'
 export XSECURELOCK_SAVER=$HOME/.config/dwm/lockscreen.sh
 export XSECURELOCK_FONT=azukifontB:size=30
+eval $(opam env)
 
 if [ -f "$HOME/.bash_aliases" ];then
     source $HOME/.bash_aliases

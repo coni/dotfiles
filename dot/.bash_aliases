@@ -1,2 +1,5 @@
-alias java16=/home/coni/.gally_launcher/jdk-16.0.1+9-jre/bin/java
-alias hihi="emacs -nw"
+alias sudo="sudo "
+# faut que je trouve une alternative
+alias putain_lumi="chown coni /sys/class/backlight/intel_backlight/brightness"
+alias pute="dune clean && dune build && dune runtest && dune clean"
+alias gl="gally_launcher"
