@@ -1,0 +1,11 @@
+[Unit]
+Description=Sound Service
+
+[Service]
+# Note that notify will only work if --daemonize=no
+Type=notify
+ExecStart=/usr/bin/pulseaudio --daemonize=no --log-target=journal
+Restart=always
+
+[Install]
+WantedBy=default.target
