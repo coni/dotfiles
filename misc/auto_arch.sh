@@ -1,10 +1,27 @@
+# clock
 hwclock --systohc
+
+# Language Symbol
 echo fr_FR.UTF-8 UTF-8 >> /etc/locale.gen
+echo zh_CN.UTF-8 UTF-8 >> /etc/locale.gen
+echo en.US.UTF-8 UTF-8 >> /etc/locale.gen
 locale-gen
-echo LANG=fr_FR.UTF-8 >> /etc/locale.conf
+
+# System Language
+echo LANG=en_US.UTF-8 >> /etc/locale.conf
+
+# Keyboard Layout
 echo KEYMAP=fr >> /etc/vconsole.conf
-echo coni >> /etc/hostname
+
+# Hostname
+echo radvx > /etc/hostname
+
+# hosts file
 echo 127.0.0.1 localhost >> /etc/hosts
 echo ::1 localhost >> /etc/hosts
+
+# compiling kernel
 mkinitcpio -P
+
+# user password
 passwd
