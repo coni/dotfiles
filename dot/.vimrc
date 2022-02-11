@@ -99,10 +99,13 @@ call plug#begin('~/.vim/plugged')
 
 "Syntax highlighting and autocompletion
 Plug 'neoclide/coc.nvim' , { 'branch' : 'release' }
+Plug 'OmniSharp/omnisharp-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'dense-analysis/ale'
+Plug 'nickspoons/vim-sharpenup'
 Plug 'alvan/vim-closetag'
 
 "File search and navigation
@@ -119,6 +122,8 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 "Debugging, refactoring and version control
 Plug 'puremourning/vimspector'
+
+Plug 'gmarik/Vundle.vim'
 
 call plug#end()
 
