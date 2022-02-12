@@ -1,5 +1,5 @@
 is_battery=false
-if [ -f "$HOME/.local/bin/batterystatus" ]; then
+if [ -f "/usr/local/bin/batterystatus" ]; then
     is_battery=true
     echo "oui"
 fi
