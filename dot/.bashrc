@@ -4,7 +4,7 @@
 
 # If not running interactively, don't do anything
 
-cat $HOME/.config/termColor/default
+# cat $HOME/.config/termColor/default
 
 export PATH=$PATH:$HOME/.local/bin/:$HOME/.local/bin/platform-tools/
 export LANG=fr_FR.UTF-8
