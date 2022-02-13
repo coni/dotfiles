@@ -1,7 +1,6 @@
 #!/bin/sh
 
 # add your autostart stuffs here
-picom &
 # xrdb merge ~/Public/xresources/forest/.Xresources &
 feh --bg-tile $HOME/.config/dwm/wallpaper/default.png &
 setxkbmap fr

@@ -144,7 +144,7 @@ set bg=dark
 noremap <C-b> :NERDTreeToggle<cr>
 noremap <C-s> :w<cr>
 noremap <C-x> :dp<cr>
-
+noremap <C-a> :terminal<cr>
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)

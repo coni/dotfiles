@@ -1,0 +1,7 @@
+noremap <C-a> :sh<cr>
+noremap <C-d> :delete<cr>
+noremap <C-c> :copy 
+noremap <C-n> :mkdir 
+noremap <C-t> :touch
+noremap <C-f> :move
+noremap <C-v> :view<cr>
