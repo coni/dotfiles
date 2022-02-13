@@ -83,3 +83,30 @@ font:
     y: 0
 window:
   opacity: 0.8
+# BEGIN ACE
+colors:
+  primary:
+    background: '#090D1D'
+    foreground: '#ced3e3'
+  cursor:
+    text:       '#090D1D'
+    cursor:     '#ced3e3'
+  normal:
+    black:      '#090D1D'
+    red:        '#5062A1'
+    green:      '#4E67B1'
+    yellow:     '#5071CF'
+    blue:       '#6B89B5'
+    magenta:    '#6291D3'
+    cyan:       '#8DA4DB'
+    white:      '#ced3e3'
+  bright:
+    black:      '#90939e'
+    red:        '#5062A1'
+    green:      '#4E67B1'
+    yellow:     '#5071CF'
+    blue:       '#6B89B5'
+    magenta:    '#6291D3'
+    cyan:       '#8DA4DB'
+    white:      '#ced3e3'
+# END ACE
