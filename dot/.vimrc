@@ -103,6 +103,7 @@ Plug 'OmniSharp/omnisharp-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
+
 Plug 'jiangmiao/auto-pairs'
 Plug 'dense-analysis/ale'
 Plug 'nickspoons/vim-sharpenup'
@@ -114,14 +115,15 @@ Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
 
 "Editor interface and theming
-@REM Plug 'morhetz/gruvbox'
-Plug 'vim-airline/vim-airline'
+"ca c'est le truc avec la bar en bas que je trouve useless
+"Plug 'vim-airline/vim-airline'
+
 Plug 'ryanoasis/vim-devicons'
 Plug 'yggdroot/indentline'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-
+Plug 'tpope/vim-commentary'
 "Debugging, refactoring and version control
-Plug 'puremourning/vimspector'
+"Plug 'puremourning/vimspector'
 
 Plug 'gmarik/Vundle.vim'
 
@@ -134,7 +136,6 @@ let g:coc_global_extensions = [ 'coc-tsserver' ]
 autocmd VimEnter * NERDTree | wincmd p
 " Exit Vim if NERDTree is the only window remaining in the only tab.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-@REM colorscheme gruvbox
 set bg=dark
 
 "-----------NAVIGATION KEYMAPS-------------
@@ -150,6 +151,10 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+
+noremap <C-h> :syntax off<cr>
+noremap <C-i> :syntax on<cr>
 
 " Move 1 more lines up or down in normal and visual selection modes.
 vnoremap J :m '>+1<CR>gv=gv
@@ -179,3 +184,22 @@ noremap <leader><cr> <cr><c-w>h:q<cr>
 nnoremap <F2> :set invpaste paste?<CR>
 imap <F2> <C-O>:set invpaste paste?<CR>
 set pastetoggle=<F2>
+let s:hidden_all = 0
+function! ToggleHiddenAll()
+    if s:hidden_all  == 0
+        let s:hidden_all = 1
+     "   set noshowmode
+        set noruler
+        set laststatus=0
+        set noshowcmd
+    else
+        let s:hidden_all = 0
+        set showmode
+        set ruler
+        set laststatus=2
+        set showcmd
+    endif
+endfunction
+
+"call ToggleHiddenAll()
+nnoremap <S-h> :call ToggleHiddenAll()<CR>
