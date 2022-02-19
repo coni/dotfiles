@@ -1,5 +1,15 @@
 alias sudo="sudo "
-# faut que je trouve une alternative
-alias putain_lumi="chown coni /sys/class/backlight/intel_backlight/brightness"
-alias pute="dune clean && dune build && dune runtest && dune clean"
 alias gl="gally_launcher"
+
+alias se=sudoedit
+alias e=$EDITOR
+
+mkcd() {
+  mkdir $1
+  cd $1
+}
+
+cdl() {
+  cd $1
+  ls
+}
