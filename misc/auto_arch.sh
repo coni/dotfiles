@@ -4,7 +4,7 @@ hwclock --systohc
 # Language Symbol
 echo fr_FR.UTF-8 UTF-8 >> /etc/locale.gen
 echo zh_CN.UTF-8 UTF-8 >> /etc/locale.gen
-echo en.US.UTF-8 UTF-8 >> /etc/locale.gen
+echo en_US.UTF-8 UTF-8 >> /etc/locale.gen
 echo ko_KR.UTF-8 UTF-8 >> /etc/locale.gen
 echo jp_JP.UTF-8 UTF-8 >> /etc/locale.gen
 locale-gen
