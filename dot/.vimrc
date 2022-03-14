@@ -1,16 +1,3 @@
-
-"   ██    ██ ██ ███    ███ ██████   ██████
-"   ██    ██ ██ ████  ████ ██   ██ ██
-"   ██    ██ ██ ██ ████ ██ ██████  ██
-"    ██  ██  ██ ██  ██  ██ ██   ██ ██
-"██   ████   ██ ██      ██ ██   ██  ██████
-
-"Author: Sergio Rodriguez
-"
-"This configuration file comes with ABSOLUTELY NO WARRANTY,
-"to the extent permitted by applicable law.
-
-
 "---------GENERAL SETTINGS------------
 
 "Set compatibility to Vim only.
@@ -115,8 +102,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
 
 "Editor interface and theming
-"ca c'est le truc avec la bar en bas que je trouve useless
-"Plug 'vim-airline/vim-airline'
 
 Plug 'ryanoasis/vim-devicons'
 Plug 'yggdroot/indentline'
@@ -131,12 +116,12 @@ call plug#end()
 
 "---------- PLUGIN VARIABLES---------------
 "
-let g:airline_powerline_fonts = 1
-let g:coc_global_extensions = [ 'coc-tsserver' ]
-autocmd VimEnter * NERDTree | wincmd p
-" Exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-set bg=dark
+" let g:coc_global_extensions = [ 'coc-tsserver' ]
+" let g:airline_powerline_fonts = 1
+" autocmd VimEnter * NERDTree | wincmd p
+" " Exit Vim if NERDTree is the only window remaining in the only tab.
+" autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+" set bg=dark
 
 "-----------NAVIGATION KEYMAPS-------------
 "
@@ -146,24 +131,17 @@ noremap <C-b> :NERDTreeToggle<cr>
 noremap <C-s> :w<cr>
 noremap <C-x> :dp<cr>
 noremap <C-a> :terminal<cr>
+"hide bar oui jaime bien ce qui est minimaliste
+nnoremap <S-h> :call ToggleHiddenAll()<CR>
 
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-
-noremap <C-h> :syntax off<cr>
-noremap <C-i> :syntax on<cr>
+"oui ma prof d'algorithmique n'aime pas quand on a la coloration syntaxique
+nnoremap <C-h> :call ToggleSyntax()<CR>
 
 " Move 1 more lines up or down in normal and visual selection modes.
 vnoremap J :m '>+1<CR>gv=gv
-nnoremap K :m .-2<CR>==
-nnoremap J :m .+1<CR>==
 vnoremap K :m '<-2<CR>gv=gv
-
-"Misc
-:imap ii <Esc>
+nnoremap J :m .+1<CR>==
+nnoremap K :m .-2<CR>==
 
 " Map the <Space> key to toggle a selected fold opened/closed.
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
@@ -174,16 +152,26 @@ autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent loadview
 
 "Search shortcuts
-let mapleader = ","
-noremap <leader>w :w<cr>
-noremap <leader>gs :CocSearch
+"let mapleader = ","
 noremap <leader>fs :Files<cr>
-noremap <leader><cr> <cr><c-w>h:q<cr>
 
 " Vim's auto indentation feature does not work properly with text copied from outside of Vim. Press the <F2> key to toggle paste mode on/off.
 nnoremap <F2> :set invpaste paste?<CR>
-imap <F2> <C-O>:set invpaste paste?<CR>
+nnoremap <F3> :call RunCode()<CR>
+
 set pastetoggle=<F2>
+
+let s:syntax = 1
+function! ToggleSyntax()
+  if s:syntax == 1
+    syntax off
+    let s:syntax = 0
+  else
+    syntax on
+    let s:syntax = 1
+  endif
+endfunction
+
 let s:hidden_all = 0
 function! ToggleHiddenAll()
     if s:hidden_all  == 0
@@ -201,5 +189,12 @@ function! ToggleHiddenAll()
     endif
 endfunction
 
-"call ToggleHiddenAll()
-nnoremap <S-h> :call ToggleHiddenAll()<CR>
+function RunCode()
+	if &ft == 'c'
+    w !make && make run
+  elseif &ft == 'python'
+    w !python %:p
+  endif
+endfunction
+
+call ToggleHiddenAll()
