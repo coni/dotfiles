@@ -84,9 +84,9 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-"Syntax highlighting and autocompletion
+""Syntax highlighting and autocompletion
 Plug 'neoclide/coc.nvim' , { 'branch' : 'release' }
-Plug 'OmniSharp/omnisharp-vim'
+ Plug 'OmniSharp/omnisharp-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
@@ -96,17 +96,30 @@ Plug 'dense-analysis/ale'
 Plug 'nickspoons/vim-sharpenup'
 Plug 'alvan/vim-closetag'
 
-"File search and navigation
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+""File search and navigation
+"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+"Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
 
-"Editor interface and theming
+""Editor interface and theming
 
 Plug 'ryanoasis/vim-devicons'
 Plug 'yggdroot/indentline'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tpope/vim-commentary'
+
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+" colorscheme wal
+
+"lsp-complete
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+
 "Debugging, refactoring and version control
 "Plug 'puremourning/vimspector'
 
@@ -194,6 +207,8 @@ function RunCode()
     w !make && make run
   elseif &ft == 'python'
     w !python %:p
+  elseif &ft == "cs"
+    w !dotnet run
   endif
 endfunction
 
