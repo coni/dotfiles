@@ -1,0 +1,179 @@
+" ------------------------------- Install vim-plug if not already installed -------------------------------
+
+if empty(glob('~/.vim/autoload/plug.vim'))
+	silent sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" ------------------------------- Vim parameters -------------------------------
+
+set number
+filetype plugin indent on
+set backspace=indent,eol,start
+set clipboard+=unnamedplus
+set mouse=a
+set ignorecase
+
+" ------------------------------- Keybinds -------------------------------
+
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+nnoremap J :m .+1<CR>==
+nnoremap K :m .-2<CR>==
+vnoremap < <gv
+vnoremap > >gv
+nnoremap <C-j> 5j
+nnoremap <C-k> 5k
+nnoremap <C-b> :NERDTreeToggle<CR>
+nnoremap <C-s> :w<cr>
+nnoremap <C-f> :Telescope find_files<CR>
+noremap <C-a> :call OpenTerminal()<cr>
+nnoremap <C-A-c> :q<cr>
+nnoremap <C-n> :tabnew<CR>
+nnoremap <C-d> :call OpenGdb()<CR>
+nnoremap <A-;> :call MoveToNextTab()<CR>
+nnoremap <A-,> :call MoveToPrevTab()<CR>
+nnoremap <c-i> :call RunCode(run_c, run_py, run_cs, run_default)<cr>
+vnoremap <C-m> :call nerdcommenter#Comment('x', 'toggle')<cr>
+nnoremap <C-m> :call nerdcommenter#Comment('x', 'toggle')<cr>
+nnoremap <C-A-h> :set number!<CR>
+
+nnoremap <C-h> B
+nnoremap <C-l> W
+inoremap <C-H> <C-O>B
+inoremap <C-L> <C-O>W
+
+noremap! <C-BS> <C-w>
+noremap! <C-h> <C-w>
+
+set tabstop=4
+set shiftwidth=4
+
+" ------------------------------- Plugin -------------------------------
+packadd termdebug
+call plug#begin('~/.vim/plugged')
+
+Plug 'glepnir/dashboard-nvim'
+Plug 'ryanoasis/vim-devicons'
+Plug 'preservim/nerdtree'
+Plug 'rose-pine/neovim'
+"Plug 'AlphaTechnolog/pywal.nvim', { 'as': 'pywal' }
+
+" ------ lsp plugins -------
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+
+" For vsnip users.
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
+
+" For luasnip users.
+" Plug 'L3MON4D3/LuaSnip'
+" Plug 'saadparwaiz1/cmp_luasnip'
+
+" For ultisnips users.
+ "Plug 'SirVer/ultisnips'
+ "Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+
+" For snippy users.
+Plug 'dcampos/nvim-snippy'
+Plug 'dcampos/cmp-snippy'
+
+Plug 'preservim/nerdcommenter'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'BurntSushi/ripgrep'
+
+call plug#end()
+
+" ------------------------------- Plugin Parameters -------------------------------
+" we will add keybinds below this comment.
+"Changing default NERDTree arrows
+let g:NERDTreeDirArrowExpandable = '▸'
+let g:NERDTreeDirArrowCollapsible = '▾'
+
+" ------------------------------- Custom Functions -------------------------------
+
+function MoveToPrevTab()
+  "there is only one window
+  if tabpagenr('$') == 1 && winnr('$') == 1
+    return
+  endif
+  "preparing new window
+  let l:tab_nr = tabpagenr('$')
+  let l:cur_buf = bufnr('%')
+  if tabpagenr() != 1
+    close!
+    if l:tab_nr == tabpagenr('$')
+      tabprev
+    endif
+    sp
+  else
+    close!
+    exe "0tabnew"
+  endif
+  "opening current buffer in new window
+  exe "b".l:cur_buf
+	execute "normal! \<C-w>L"
+endfunc
+
+function MoveToNextTab()
+  "there is only one window
+  if tabpagenr('$') == 1 && winnr('$') == 1
+    return
+  endif
+  "preparing new window
+  let l:tab_nr = tabpagenr('$')
+  let l:cur_buf = bufnr('%')
+  if tabpagenr() < tab_nr
+    close!
+    if l:tab_nr == tabpagenr('$')
+      tabnext
+    endif
+    sp
+  else
+    close!
+    tabnew
+  endif
+  "opening current buffer in new window
+  exe "b".l:cur_buf
+	execute "normal! \<C-w>L"
+endfunc
+
+function OpenGdb()
+	Termdebug
+	set nonumber
+	execute "normal! \<C-w>j"
+	execute "normal! \<C-w>j"
+	execute "normal! \<C-w>\<S-h>"
+	NERDTreeToggle
+	NERDTreeToggle
+	vertical resize 130
+endfunc
+
+let run_c="make && ./main"
+let run_py="python " . @%
+let run_cs="dotnet run"
+let run_default="./" . @%
+function RunCode(run_c, run_py, run_cs, run_default)
+	if &ft == 'c'
+    execute "!" . a:run_c
+  elseif &ft == 'python'
+    execute "!" . a:run_py
+  elseif &ft == "cs"
+    execute "!" . a:run_cs
+  else
+    execute "!" . a:run_default
+  endif
+endfunction
+
+function OpenTerminal()
+	split
+	set nonumber
+	terminal
+endfunction

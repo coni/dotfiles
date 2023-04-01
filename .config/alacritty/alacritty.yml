@@ -1,0 +1,74 @@
+# Base16 Gruvbox light, hard 256 - alacritty color config
+# Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
+colors:
+  # Default colors
+  primary:
+    background: '0xfbf1c7'
+    foreground: '0x000000'
+    # foreground: '0x504945'
+
+  # Colors the cursor will use if `custom_cursor_colors` is true
+  cursor:
+    text: '0xfbf1c7'
+    cursor: '0x000000'
+    # cursor: '0x504945'
+
+  # Normal colors
+  normal:
+    # black:   '0xfbf1c7'
+    black:   '0x000000'
+    red:     '0x9d0006'
+    green:   '0x79740e'
+    yellow:  '0xb57614'
+    blue:    '0x076678'
+    magenta: '0x8f3f71'
+    cyan:    '0x427b58'
+    white:   '0x504945'
+
+  # Bright colors
+  bright:
+    # black:   '0xbdae93'
+    black:   '0x000000'
+    red:     '0x9d0006'
+    green:   '0x79740e'
+    yellow:  '0xb57614'
+    blue:    '0x076678'
+    magenta: '0x8f3f71'
+    cyan:    '0x427b58'
+    white:   '0x282828'
+
+  indexed_colors:
+    - { index: 16, color: '0xaf3a03' }
+    - { index: 17, color: '0xd65d0e' }
+    - { index: 18, color: '0xebdbb2' }
+    - { index: 19, color: '0xd5c4a1' }
+    - { index: 20, color: '0x665c54' }
+    - { index: 21, color: '0x3c3836' }
+
+font:
+  # Normal (roman) font face
+  normal:
+    family: JetBrains Mono
+    # The `style` can be specified to pick a specific face.
+    style: Regular
+
+  # Bold font face
+  bold:
+    family: JetBrains Mono
+    # The `style` can be specified to pick a specific face.
+    style: Bold
+
+  # Italic font face
+  italic:
+    family: JetBrains Mono
+    # The `style` can be specified to pick a specific face.
+    style: Italic
+
+  # Point size of the font
+  size: 12.0
+
+  # Offset is the extra space around each character. `offset.y` can be thought of
+  # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
+  offset:
+    x: 0
+    y: 0
