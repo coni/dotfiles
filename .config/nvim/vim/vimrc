@@ -1,8 +1,8 @@
 " ------------------------------- Install vim-plug if not already installed -------------------------------
 
 if empty(glob('~/.vim/autoload/plug.vim'))
-	silent sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
@@ -13,7 +13,6 @@ filetype plugin indent on
 set backspace=indent,eol,start
 set clipboard+=unnamedplus
 set mouse=a
-set ignorecase
 
 " ------------------------------- Keybinds -------------------------------
 
@@ -34,7 +33,7 @@ nnoremap <C-n> :tabnew<CR>
 nnoremap <C-d> :call OpenGdb()<CR>
 nnoremap <A-;> :call MoveToNextTab()<CR>
 nnoremap <A-,> :call MoveToPrevTab()<CR>
-nnoremap <c-i> :call RunCode(run_c, run_py, run_cs, run_default)<cr>
+nnoremap <c-i> :call RunCode(run_c, run_py, run_cs, run_default, run_rust)<cr>
 vnoremap <C-m> :call nerdcommenter#Comment('x', 'toggle')<cr>
 nnoremap <C-m> :call nerdcommenter#Comment('x', 'toggle')<cr>
 nnoremap <C-A-h> :set number!<CR>
@@ -157,16 +156,19 @@ function OpenGdb()
 endfunc
 
 let run_c="make && ./main"
-let run_py="python " . @%
+let run_py="python "
 let run_cs="dotnet run"
+let run_rust="cargo run"
 let run_default="./" . @%
-function RunCode(run_c, run_py, run_cs, run_default)
+function RunCode(run_c, run_py, run_cs, run_default, run_rust)
 	if &ft == 'c'
     execute "!" . a:run_c
   elseif &ft == 'python'
-    execute "!" . a:run_py
+    execute "!" . a:run_py . @%
   elseif &ft == "cs"
     execute "!" . a:run_cs
+  elseif &ft == "rust"
+	  execute "!" . a:run_rust
   else
     execute "!" . a:run_default
   endif
