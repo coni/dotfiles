@@ -1,0 +1,72 @@
+(defwidget panel_workspaces [orientation] 
+	(box
+		:class "workspaces"
+		(eventbox 
+			(box
+				:space-evenly "false"
+				:orientation orientation
+				(for workspace in {workspaces.workspaces}
+					(button
+						:class "workspaces-btn"
+						:onclick "hyprctl dispatch workspace ${workspace.id}"
+						(label :class "icon" :text {workspace.windows > 0 ? "${workspace.id == workspaces.active ? "" : ""}" : ""})
+					)
+				)
+			)
+		)
+	)
+)
+
+(defwindow bar-center
+	:monitor 0
+	:geometry (geometry	
+						:y "20px"
+						:width "98%"
+					   	:anchor "top center")
+	:stacking "fg"
+	:exclusive "true"
+	:reserve (struts :distance "40px" :side "top")
+	:windowtype "dock"
+	:wm-ignore false
+	(bar-center)
+)
+
+(defwidget bar-left []
+	(box
+		:class "left-text"
+		:halign "start"
+		(panel_workspaces :orientation "h")
+	)
+)
+
+(defwidget bar-right []
+	(box 
+		:halign "end"
+		:class "right-text"
+		(label :text "${current_window == "" ? "Desktop " : "${current_window} "}")
+		(label :text "🔋 ${EWW_BATTERY["BAT0"].capacity}%")
+	)
+)
+
+(defwidget center []
+	(box 
+		:class "center-text"
+		time
+	)
+)
+
+(defwidget baar []
+	(centerbox 
+		(left) 
+		(center) 
+		(right)
+	)
+)
+
+(defwidget bar-center []
+	(box
+		(bar-left)
+		(center)
+		(bar-right)
+	)
+)
