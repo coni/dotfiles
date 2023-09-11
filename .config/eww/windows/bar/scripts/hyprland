@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-NUMBER_OF_WORKSPACES=6
+NUMBER_OF_WORKSPACES=10
 
 window_class() {
     echo `hyprctl activewindow -j | jq --raw-output .class`
@@ -16,7 +16,6 @@ workspaces (){
 }
 
 if [[ $1 == 'workspaces' ]]; then 
-    echo "{ \"workspaces\": $(workspaces), \"active\": 1, \"active_empty\": true }"
     socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | while read -r line; do
         active=$(eww get workspaces | jq .active)
         if [[ ${line:0:9} == 'workspace' ]]; then

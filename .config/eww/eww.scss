@@ -1,7 +1,6 @@
-.bar-center
+.bar
 {
 	background-color: rgba(0,0,0,0);
-	border-radius: 9px;
 	font-size: 15px;
 	font-weight: bold;
 }
@@ -9,8 +8,8 @@
 .center-text
 {
 	border-radius: 9px;
-	margin: 0px 230px; // wtf please help
 	background-color: rgba(0,0,0,0.75);
+	padding: 7px;
 }
 
 .right-text
@@ -20,14 +19,59 @@
 	padding: 7px;
 }
 
-.left-text
+.left-bar
 {
-	background-color: rgba(0,0,0,0.75);
-	border-radius: 9px;
+	background-color: rgba(0, 0, 0, 0);
 }
 
-.workspaces-btn
+.workspaces
+{
+	padding: 0px 7px;
+	border-radius: 9px;
+	background-color: rgba(0,0,0,0.75);
+}
+
+.lyrics
+{
+	padding: 0px 7px;
+	border-radius: 9px;
+	background-color: rgba(0,0,0,0.75);
+}
+
+.button
 {
 	background-color: rgba(0, 0, 0, 0);
 	border-color: rgba(0, 0, 0, 0);
+}
+
+
+.settings_button
+{
+	background-color: rgba(0, 0, 0, 0);
+	border-color: rgba(0, 0, 0, 0);
+	font-weight: bold;
+	font-size: 25px;	
+	padding: 10px;
+}
+
+.menu_settings
+{
+	background-color: rgba(0, 0, 0, 0);
+	border-color: rgba(0, 0, 0, 0);
+	border-radius: 9px;
+	font-weight: bold;
+}
+
+.menu
+{
+	padding: 7px;
+	background-color: rgba(0, 0, 0, 0.75);
+	border-color: rgba(0, 0, 0, 0);
+	border-radius: 9px;
+}
+
+.scale
+{
+	border-color: rgba(0, 0, 0, 1);
+	padding: 7px;
 }

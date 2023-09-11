@@ -1,0 +1,80 @@
+(defvar scripts_path "windows/bar/scripts")
+
+(defpoll current_brightness
+	:interval "2s"
+	`windows/bar/scripts/brightness.sh get`
+)
+
+(defpoll current_volume
+	:interval "2s"
+	`windows/bar/scripts/volume.sh get`
+)
+
+(defwidget scale_brightness []
+;🖵
+	(scale
+		:class "scale"
+		:min 0
+		:max 100
+		:value {current_brightness}
+		:onchange "${scripts_path}/brightness.sh set {}"
+	)
+)
+
+(defwidget scale_volume []
+;🔊
+	(scale
+		:class "scale"
+		:min 0
+		:max 100
+		:value {current_volume}
+		:onchange "${scripts_path}/volume.sh set {}"
+	)
+)
+
+(defwidget menu_settings []
+	(box
+		:class "menu"
+	 	:vexpand true
+		:valign "center"
+		:orientation "v"
+		(box
+			:class "menu_settings_button"
+			:halign "center"
+			:spacing 30
+			(button
+				:class "settings_button"
+				:onclick "poweroff"
+				(label :text "⏻")
+			)
+			(button
+				:class "settings_button"
+				:onclick "reboot"
+				(label :text "⟳")
+			)
+			(button
+				:class "settings_button"
+				:onclick "eww update current_window='yo'"
+				(label :text "🔒")
+			)
+		)
+		(scale_volume)
+		(scale_brightness)
+	)
+)
+
+(defwindow menu_settings
+	:monitor 0
+	:geometry (geometry
+				:x "20px"
+				:y "20px"
+
+				:height "5%" 
+				:anchor "top right"
+				)
+	:stacking "fg"
+	:exclusive "false"
+	:focusable "true"
+	(menu_settings)
+)
+
