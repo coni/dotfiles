@@ -1,3 +1,10 @@
+.button
+{
+	background-color: rgba(0, 0, 0, 0);
+	border-color: rgba(0, 0, 0, 0);
+}
+
+
 .bar
 {
 	background-color: rgba(0,0,0,0);
@@ -5,21 +12,21 @@
 	font-weight: bold;
 }
 
-.center-text
+.bar-center
 {
 	border-radius: 9px;
 	background-color: rgba(0,0,0,0.75);
 	padding: 7px;
 }
 
-.right-text
+.bar-right
 {
 	border-radius: 9px;
 	background-color: rgba(0,0,0,0.75);
 	padding: 7px;
 }
 
-.left-bar
+.bar-left
 {
 	background-color: rgba(0, 0, 0, 0);
 }
@@ -37,13 +44,6 @@
 	border-radius: 9px;
 	background-color: rgba(0,0,0,0.75);
 }
-
-.button
-{
-	background-color: rgba(0, 0, 0, 0);
-	border-color: rgba(0, 0, 0, 0);
-}
-
 
 .settings_button
 {

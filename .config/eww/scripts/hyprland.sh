@@ -16,6 +16,7 @@ workspaces (){
 }
 
 if [[ $1 == 'workspaces' ]]; then 
+    echo "{ \"workspaces\": $(workspaces), \"active\": 1, \"active_empty\": true }"
     socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | while read -r line; do
         active=$(eww get workspaces | jq .active)
         if [[ ${line:0:9} == 'workspace' ]]; then
@@ -24,7 +25,8 @@ if [[ $1 == 'workspaces' ]]; then
 
         active_empty='true'
         let "i = $active - 1"
-        if [[ $(workspaces | jq --raw-output .[$i].windows) -gt 0 ]]; then active_empty='false'; fi
+
+		echo $(workspaces)
 
         eww update workspaces="{
             \"workspaces\": $(workspaces),
@@ -37,8 +39,5 @@ if [[ $1 == 'workspaces' ]]; then
 fi
 
 if [[ $1 == 'window' ]]; then 
-    window_class
-    socat -u UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock - | while read -r line; do
-        window_class
-    done
+	hyprctl activewindow | grep class | cut -d : -f 2 | cut -c 2-
 fi

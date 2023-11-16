@@ -1,14 +1,28 @@
 (include "windows/bar/bar.yuck")
+(include "windows/menu_settings/menu_settings.yuck")
 
-(defpoll time 
-				:interval "1s"
-              	:initial "initial-value"  ; optional, defaults to poll at startup
-              	:run-while time-visible   ; optional, defaults to 'true'
-  `date "+%H:%M:%S %A %d."`)
+(defpoll time
+                :interval "15s"
+                :initial "initial-value"  ; optional, defaults to poll at startup
+                :run-while time-visible   ; optional, defaults to 'true'
+  `date "+%H:%M %A %d."`)
 
-(deflisten  workspaces  `windows/bar/scripts/hyprland workspaces`)
+(defvar SCRIPTS_PATH "scripts")
+
+(deflisten lyrics "sptlrx pipe")
+
+(defpoll current_brightness
+	:interval "2s"
+	`scripts/brightness.sh get`
+)
 
 (defpoll current_window 
-	:interval "2000ms"
-	`hyprctl activewindow | grep class | cut -d : -f 2 | cut -c 2-`)
+ :interval "2000ms"
+ `scripts/hyprland.sh window`)
 
+(deflisten  workspaces  "scripts/hyprland.sh workspaces")
+
+(defpoll current_volume
+	:interval "2s"
+	`scripts/volume.sh get`
+)

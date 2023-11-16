@@ -1,34 +1,39 @@
-(defvar scripts_path "windows/bar/scripts")
+(defwindow menu_settings
+	:monitor 0
+	:geometry (geometry
+				:x "20px"
+				:y "20px"
 
-(defpoll current_brightness
-	:interval "2s"
-	`windows/bar/scripts/brightness.sh get`
-)
-
-(defpoll current_volume
-	:interval "2s"
-	`windows/bar/scripts/volume.sh get`
+				:height "5%" 
+				:anchor "top right"
+				)
+	:stacking "fg"
+	:exclusive "false"
+	:focusable "false"
+	(menu_settings)
 )
 
 (defwidget scale_brightness []
 ;🖵
 	(scale
+		:width "170"
 		:class "scale"
 		:min 0
 		:max 100
 		:value {current_brightness}
-		:onchange "${scripts_path}/brightness.sh set {}"
+		:onchange "${SCRIPTS_PATH}/brightness.sh set {}"
 	)
 )
 
 (defwidget scale_volume []
 ;🔊
 	(scale
+		:width "170"
 		:class "scale"
 		:min 0
 		:max 100
 		:value {current_volume}
-		:onchange "${scripts_path}/volume.sh set {}"
+		:onchange "${SCRIPTS_PATH}/volume.sh set {}"
 	)
 )
 
@@ -54,27 +59,24 @@
 			)
 			(button
 				:class "settings_button"
-				:onclick "eww update current_window='yo'"
+				:onclick "swaylock"
 				(label :text "🔒")
 			)
 		)
-		(scale_volume)
-		(scale_brightness)
+		(box
+			:space-evenly false
+			(label
+				:text "🔊"
+			)
+			(scale_volume)
+		)
+
+		(box
+			:space-evenly false
+			(label
+				:text "🖵"
+			)
+			(scale_brightness)
+		)
 	)
 )
-
-(defwindow menu_settings
-	:monitor 0
-	:geometry (geometry
-				:x "20px"
-				:y "20px"
-
-				:height "5%" 
-				:anchor "top right"
-				)
-	:stacking "fg"
-	:exclusive "false"
-	:focusable "true"
-	(menu_settings)
-)
-

@@ -1,21 +1,8 @@
-(defvar scripts_path "windows/bar/scripts")
-(deflisten lyrics "sptlrx pipe")
-(defpoll current_brightness
-	:interval "2s"
-	`windows/bar/scripts/brightness.sh get`
-)
-
-(defpoll current_volume
-	:interval "2s"
-	`windows/bar/scripts/volume.sh get`
-)
-
-(defwidget panel_workspaces [orientation] 
+(defwidget panel_workspaces [] 
 	(box
 		(eventbox 
 			(box
 				:space-evenly "false"
-				:orientation orientation
 				(for workspace in {workspaces.workspaces}
 					(button
 						:class "button"
@@ -42,94 +29,25 @@
 	(bar)
 )
 
-
-(defwidget scale_brightness []
-;🖵
-	(scale
-		:class "scale"
-		:min 0
-		:max 100
-		:value {current_brightness}
-		:onchange "${scripts_path}/brightness.sh set {}"
-	)
-)
-
-(defwidget scale_volume []
-;🔊
-	(scale
-		:class "scale"
-		:min 0
-		:max 100
-		:value {current_volume}
-		:onchange "${scripts_path}/volume.sh set {}"
-	)
-)
-
-(defwidget menu_settings []
-	(box
-		:class "menu"
-	 	:vexpand true
-		:valign "center"
-		:orientation "v"
-		(box
-			:class "menu_settings_button"
-			:halign "center"
-			:spacing 30
-			(button
-				:class "settings_button"
-				:onclick "poweroff"
-				(label :text "⏻")
-			)
-			(button
-				:class "settings_button"
-				:onclick "reboot"
-				(label :text "⟳")
-			)
-			(button
-				:class "settings_button"
-				:onclick "eww update current_window='yo'"
-				(label :text "🔒")
-			)
-		)
-		(scale_volume)
-		(scale_brightness)
-	)
-)
-
-(defwindow menu_settings
-	:monitor 0
-	:geometry (geometry
-				:x "20px"
-				:y "20px"
-
-				:height "5%" 
-				:anchor "top right"
-				)
-	:stacking "fg"
-	:exclusive "false"
-	:focusable "true"
-	(menu_settings)
-)
-
-
-
-
 (defwidget bar-left []
 	(box
 		:space-evenly false
 		:spacing  20
-		:class "left-bar"
+		:class "bar-left"
 		:halign "start"
 
 		(box 
 			:class "workspaces"
-			(panel_workspaces :orientation "h")
+			(panel_workspaces)
 		)
 
 		(box
 			:class "lyrics"
 			:css "${lyrics == "" ? ".lyrics { background-color: rgba(0,0,0,0); }" : ".lyrics { background-color: rgba(0,0,0,0.75); }"}"
-			lyrics
+			(label 
+				:text "${lyrics}"
+                                :limit-width 75
+			)
 		)
 	)
 )
@@ -137,9 +55,9 @@
 (defwidget bar-right []
 	(button
 		:tooltip "hehe"
-	 	:class "right-text"
+	 	:class "bar-right"
 	 	:halign "end"
-		:onclick "./windows/bar/scripts/toggle_eww.sh menu_settings"
+		:onclick "./scripts/toggle_eww.sh menu_settings"
 		(box 
 		 	:space-evenly false
 			:spacing 10
@@ -151,21 +69,29 @@
 
 (defwidget bar-center []
 	(box 
-		:class "center-text"
+		:class "bar-center"
 		:halign "center"
 		:space-evenly false
 		:spacing 0
-		:width "1%"
 
 		time
 	)
 )
 
 (defwidget bar []
-	(box
-
-		(bar-left)
-		(bar-center)
-		(bar-right)
+	(centerbox
+		:space-evenly true
+		(box
+			:width "100%"
+			(bar-left)
+		)
+		(box
+			:width "1%"
+			(bar-center)
+		)
+		(box
+			:width "100%"
+			(bar-right)
+		)
 	)
 )
