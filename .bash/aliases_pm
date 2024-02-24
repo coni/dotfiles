@@ -1,0 +1,26 @@
+export PM_PATH=$HOME/.local/var/pmbootstrap/cache_git/pmaports/device/testing
+export PM_DEVICE=xiaomi-pipa
+
+pmp() # postmarket patch
+{
+    if [ $# -ne 2 ];
+    then
+        echo pmp: arguments missing
+        return 1
+    fi
+    mkdir -p "a/$(dirname $1)"
+    mkdir -p "b/$(dirname $1)"
+    cp "$1" "a/$1"
+    cp "$1" "b/$1"
+    vim "b/$1"
+    diff -Naru "a/$1" "b/$1" > "$PM_PATH/linux-$PM_DEVICE/$2"
+    return 0
+}
+
+alias pmsum="pmbootstrap checksum linux-$PM_DEVICE"
+alias pmke="pmbootstrap kconfig edit"
+alias pmbuild="timeout 0.2 pmbootstrap log -c; pmbootstrap build linux-$PM_DEVICE"
+alias pmlog="vim $(pmbootstrap config work)/log.txt"
+alias pmcd="cd $HOME/dev/pmos/files/"
+alias pmcdl="cd $HOME/.local/var/pmbootstrap/cache_git/pmaports/device/testing/linux-$PM_DEVICE"
+alias pmcdd="cd $HOME/.local/var/pmbootstrap/cache_git/pmaports/device/testing/device-$PM_DEVICE"

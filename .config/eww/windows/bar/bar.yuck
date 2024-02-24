@@ -29,6 +29,34 @@
 	(bar)
 )
 
+(defwindow bar-2
+	:monitor 1
+	:geometry (geometry	
+						:width "98%"
+						:y "20px"
+					   	:anchor "top center")
+	:stacking "fg"
+	:exclusive "true"
+	:reserve (struts :distance "40px" :side "top")
+	:windowtype "dock"
+	:wm-ignore false
+	(bar)
+)
+
+(defwindow bar-3
+	:monitor 2
+	:geometry (geometry	
+						:width "98%"
+						:y "20px"
+					   	:anchor "top center")
+	:stacking "fg"
+	:exclusive "true"
+	:reserve (struts :distance "40px" :side "top")
+	:windowtype "dock"
+	:wm-ignore false
+	(bar)
+)
+
 (defwidget bar-left []
 	(box
 		:space-evenly false

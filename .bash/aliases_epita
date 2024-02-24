@@ -1,0 +1,58 @@
+export TEST_MAIN="$HOME/dev/test_main/main.c"
+export TEST_MAIN_HEADER="$HOME/dev/test_main/main.h"
+export PISCINE_COMPILATION="gcc -Wextra -Wall -Werror -pedantic -std=c99 -fsanitize=address"
+
+te()
+{
+    $EDITOR -p $@ $TEST_MAIN $TEST_MAIN_HEADER
+}
+
+gen_head()
+{
+    echo "#ifndef $1"
+    echo "#define $1"
+    echo
+    echo
+    echo
+    echo "#endif /* !$1 */"
+}
+
+gen_makefile()
+{
+    echo "CC = gcc"
+    echo "CFLAGS = -std=c99 -Wall -Wextra -Werror -pedantic -Wvla"
+    echo "OBJS = $1.o"
+    echo "BIN = $1"
+    echo
+    echo "all: \$(BIN)"
+    echo
+    echo "\$(BIN): \$(OBJS)"
+    echo
+    echo "clean:"
+    echo "	\$(RM) \$(BIN) \$(OBJS)"
+}
+gen_hello_world_c()
+{
+    echo "#include <stdio.h>"
+    echo "int main(void)"
+    echo
+    echo "{"
+    echo "  puts(\"Hello World !\");"
+    echo "  return 0;"
+    echo "}"
+}
+
+gen_test()
+{
+    result=$(echo "$1" | bc)
+    echo "testhehe \"$result\" \"$1\"" >> test.sh
+}
+
+alias pipi="cd $HOME/dev/epita/"
+alias g=$PISCINE_COMPILATION
+alias tg="$PISCINE_COMPILATION $TEST_MAIN"
+alias gm="git commit -m"
+alias ga="git add"
+alias gt="git tag"
+alias gpgt="git push && git push --tags"
+alias unclang="clang-format-epita"

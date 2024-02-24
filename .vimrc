@@ -1,54 +1,59 @@
 "-----------KEYMAPS-------------
 "only builtin
-noremap <C-a> :terminal<cr>
 noremap <C-s> :w<cr>
-vnoremap <Space> zf
+nnoremap <C-N> :call MoveToNextTab()<CR>
+nnoremap <C-P> :call MoveToPrevTab()<CR>
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 nnoremap J :m .+1<CR>==
 nnoremap K :m .-2<CR>==
+nnoremap <C-f> :FZF<CR>
 nnoremap <C-j> 10j
 nnoremap <C-k> 10k
-nnoremap <C-f> :set number!<cr>
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+nnoremap <C-h> :set number!<cr>
+nnoremap <C-b> :call ToggleNetrw()<cr>
+" nnoremap <C-a> :call StripWhitespace()<cr>
+nnoremap <C-S-h> :wq<cr>
 nnoremap <F2> :set invpaste paste?<CR>
-nnoremap <S-h> :call ToggleHiddenAll()<CR>
-nnoremap <C-h> :call ToggleSyntax()<CR>
-nnoremap <c-i> :call runcode(run_c, run_py, run_cs, run_default)<cr>
-nnoremap <C-d> :Termdebug<CR>
-nnoremap <C-n> :tabnew<CR>
-nnoremap <C-S-n> :tabnew<CR>:edit 
-nnoremap <C-x> :q<CR>
+nnoremap <C-@> :call system("wl-copy", @")<CR>
+" nnoremap <C-p> :Termdebug<CR>
 vnoremap < <gv
 vnoremap > >gv
 set pastetoggle=<F2>
-
-
+"set omnifunc=ale#completion#OmniFunc
+"let b:ale_fixers = {'c': ['gcc']}
 
 " ---------GENERAL SETTINGS------------
 
 "Set compatibility to Vim only.
+set autoindent
 set nolist
 set clipboard=unnamedplus
 set nocompatible
-
 filetype on
 syntax on
+colorscheme rosepine
 filetype plugin indent on
 set noruler
 set mouse=a
 
 set modelines=0
 set wrap
-set textwidth=75
+set textwidth=80
+set cc=80
 set formatoptions=tcqrn1
-set tabstop=4
+set tabstop=8
 set shiftwidth=4
 set softtabstop=4
 set expandtab
 set noshiftround
+set wildmenu
+set autoread
+set autowrite
+set list
+set listchars=tab:»\ ,trail:·,eol:$
 
-set scrolloff=5
+set scrolloff=10
 set backspace=indent,eol,start
 set ttyfast
 
@@ -63,9 +68,17 @@ set number
 set encoding=utf-8
 set hlsearch
 set incsearch
-"set ignorecase
-"set smartcase
+set ignorecase
+set smartcase
+set shortmess+=F
 
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
 " Store info from no more than 100 files at a time, 9999 lines of text, 100kb of data. Useful for copying large amounts of data between files.
 set viminfo='100,<9999,s100
 
@@ -80,22 +93,14 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-Plug 'preservim/nerdcommenter'
-Plug 'frazrepo/vim-rainbow'
-Plug 'tpope/vim-commentary'
-Plug 'ryanoasis/vim-devicons'
-" Plug 'dense-analysis/ale'
-if has('nvim')
-  " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  " Plug 'Shougo/deoplete.nvim'
-  " Plug 'roxma/nvim-yarp'
-  " Plug 'roxma/vim-hug-neovim-rpc'
-endif
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'tpope/vim-commentary'
+    Plug 'vim-scripts/Tabmerge'
+    Plug 'FredKSchott/CoVim'
+    "Plug 'dense-analysis/ale'
 call plug#end()
 let g:deoplete#enable_at_startup = 1
 
-nnoremap <C-b> :call ToggleNetrw()<cr>
 let g:NetrwIsOpen=0
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
@@ -119,6 +124,49 @@ function ToggleNetrw()
 endfunction
 
 "-------------CUSTOM FUNCTIONS-----------
+function MoveToPrevTab()
+  "there is only one window
+  if tabpagenr('$') == 1 && winnr('$') == 1
+    return
+  endif
+  "preparing new window
+  let l:tab_nr = tabpagenr('$')
+  let l:cur_buf = bufnr('%')
+  if tabpagenr() != 1
+    close!
+    if l:tab_nr == tabpagenr('$')
+      tabprev
+    endif
+    sp
+  else
+    close!
+    exe "0tabnew"
+  endif
+  "opening current buffer in new window
+  exe "b".l:cur_buf
+	execute "normal! \<C-w>L"
+endfunction
+
+function MoveToNextTab()
+  "there is only one window
+  if tabpagenr('$') == 1 && winnr('$') == 1
+    return
+  endif
+  "preparing new window
+  let l:tab_nr = tabpagenr('$')
+  let l:cur_buf = bufnr('%')
+  if tabpagenr() < tab_nr
+    close!
+    if l:tab_nr == tabpagenr('$')
+      tabnext
+    endif
+    sp
+  else
+    close!
+    tabnew
+  endif
+endfunction
+
 let s:syntax = 1
 function! ToggleSyntax()
   if s:syntax == 1
@@ -147,18 +195,12 @@ function! ToggleHiddenAll()
       endif
 endfunction
 
-let run_c="make && ./main"
-let run_py="python "
-let run_cs="dotnet run"
-let run_default="./" . @%
-function RunCode(run_c, run_py, run_cs, run_default)
-	if &ft == 'c'
-    execute "!" . a:run_c
-  elseif &ft == 'python'
-    execute "!" . a:run_py . @%
-  elseif &ft == "cs"
-    execute "!" . a:run_cs
-  else
-    execute "!" . a:run_default
+function! StripWhitespace()
+  if !&binary && &filetype != 'diff'
+    normal mz
+    normal Hmy
+    %s/\s\+$//e
+    normal 'yz<CR>
+    normal `z
   endif
 endfunction

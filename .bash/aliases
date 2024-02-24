@@ -1,9 +1,10 @@
 alias sudo="sudo "
+alias test="echo $(echo hihi | openssl passwd -1 -stdin)"
+alias c="git clone"
 alias gl="gally_launcher"
-alias vim="nvim"
-
 alias se=sudoedit
 alias e=$EDITOR
 alias unfuck_wifi="sudo systemctl restart wpa_supplicant@wlp52s0"
+alias snap="ffmpeg -f video4linux2 -i /dev/video0 -vframes 1  -video_size 180x180"
 #alias unfuck_wifi="sudo systemctl restart NetworkManager"
 #alias bar="$HOME/.config/polybar/launch.sh"
