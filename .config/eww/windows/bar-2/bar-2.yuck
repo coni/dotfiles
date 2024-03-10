@@ -1,0 +1,109 @@
+(defwindow bar-2
+    :monitor 0
+    :geometry (geometry
+        :width "98%"
+        :y "20px"
+        :anchor "top center")
+    :stacking "fg"
+    :exclusive "true"
+    :reserve (struts :distance "40px" :side "top")
+    :windowtype "dock"
+    :wm-ignore false
+    (bar-2)
+)
+
+(defwidget bar-2-left []
+    (box
+        :space-evenly false
+        :spacing  20
+        :class "bar-2-left"
+        :halign "start"
+
+        (box 
+            :class "workspaces-2"
+            (panel_workspaces)
+        )
+        (box
+            :class "lyrics-2"
+            :css "${lyrics == "" ? ".lyrics-2 { background-color:
+            rgba(0,0,0,0,75);
+            }" : ".lyrics-2 { background-color: rgba(0,0,0,0.75); }"}"
+
+            :css "${lyrics == "" ? "${title == "" ? ".lyrics-2
+            { background-color: rgba(0,0,0,0);}" : ".lyrics-2 { background-color:
+            rgba(0,0,0,0.75);}"}" : ".lyrics-2 { background-color:
+            rgba(0,0,0,0.75);"}"
+            (lyrics)
+        )
+    )
+)
+
+
+(defwidget bar-2-right []
+    (box
+        :tooltip "hehe"
+        :class "bar-2-right"
+        :halign "end"
+        :onclick "./scripts/toggle_eww.sh menu_settings"
+        (box
+            :space-evenly false
+            :spacing 10
+            (label
+                :text "${current_window == "" ? "Desktop " : "${current_window}"}"
+                :limit-width 75
+            )
+            (battery)
+        )
+    )
+)
+
+(defwidget lyrics []
+    (label
+        :text "${lyrics == "" ? "${title == "" ? "" : "${artist} - ${title}"}" : "${lyrics}"}"
+        :text-width 75
+    )
+)
+
+(defwidget battery []
+    (label :text "
+       ${EWW_BATTERY["BAT0"].capacity > 90 ? "󰁹"
+    : "${EWW_BATTERY["BAT0"].capacity > 80 ? "󰂂"
+    : "${EWW_BATTERY["BAT0"].capacity > 70 ? "󰂁"
+    : "${EWW_BATTERY["BAT0"].capacity > 60 ? "󰂀"
+    : "${EWW_BATTERY["BAT0"].capacity > 50 ? "󰁿"
+    : "${EWW_BATTERY["BAT0"].capacity > 40 ? "󰁾"
+    : "${EWW_BATTERY["BAT0"].capacity > 30 ? "󰁽"
+    : "${EWW_BATTERY["BAT0"].capacity > 20 ? "󰁼"
+    : "${EWW_BATTERY["BAT0"].capacity > 10 ? "󰁻"
+    : "󰁺"
+    }"}"}"}"}"}"}"}"} ${EWW_BATTERY["BAT0"].capacity}")
+)
+
+(defwidget bar-2-center []
+    (box 
+        :class "bar-2-center"
+        :halign "center"
+        :space-evenly false
+        :spacing 0
+
+        time
+    )
+)
+
+(defwidget bar-2 []
+    (centerbox
+        :space-evenly true
+        (box
+                :width "100%"
+                (bar-2-left)
+        )
+        (box
+                :width "1%"
+                (bar-2-center)
+        )
+        (box
+                :width "100%"
+                (bar-2-right)
+        )
+    )
+)

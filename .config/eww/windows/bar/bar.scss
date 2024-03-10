@@ -1,0 +1,52 @@
+.bar
+{
+  background-color: rgba(0,0,0,0.6);
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.bar-center
+{
+  border-radius: 9px;
+  padding: 7px;
+}
+
+.bar-right
+{
+  border-radius: 9px;
+  padding: 7px;
+}
+
+.bar-left
+{
+  border-radius: 9px;
+  padding: 7px;
+}
+
+.workspaces
+{
+  padding: 0px 7px;
+  border-radius: 9px;
+}
+
+.music
+{
+  background-color: rgba(0,0,0,0);
+  padding: 0px 7px;
+  border-radius: 9px;
+  color: black;
+  font-weight: bold;
+}
+
+.workspace-entry-current
+{
+  font-weight: 900;
+}
+
+.utils
+{
+  background-color: rgba(255,255,255,1);
+  color: black;
+  padding: 0px 7px;
+  border-radius: 9px;
+}

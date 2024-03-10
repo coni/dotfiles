@@ -1,5 +1,7 @@
 (include "windows/bar/bar.yuck")
+(include "windows/bar-2/bar-2.yuck")
 (include "windows/menu_settings/menu_settings.yuck")
+(include "windows/music/music.yuck")
 
 (defpoll time
                 :interval "15s"
@@ -11,18 +13,48 @@
 
 (deflisten lyrics "sptlrx pipe")
 
+(defpoll artist :interval "3s" "bash $HOME/.config/eww/scripts/player.sh artist")
+(defpoll title :interval "3s" "bash $HOME/.config/eww/scripts/player.sh title")
+(defpoll album :interval "3s" "bash $HOME/.config/eww/scripts/player.sh album")
+
 (defpoll current_brightness
-	:interval "2s"
-	`scripts/brightness.sh get`
+    :interval "2s"
+    "scripts/brightness.sh get"
 )
 
-(defpoll current_window 
- :interval "2000ms"
- `scripts/hyprland.sh window`)
-
-(deflisten  workspaces  "scripts/hyprland.sh workspaces")
-
 (defpoll current_volume
-	:interval "2s"
-	`scripts/volume.sh get`
+    :interval "0.1s"
+    `scripts/volume.sh get`
+)
+
+(defpoll current_volume_mute
+    :interval "0.1s"
+    `scripts/volume.sh is_mute`
+)
+
+(defpoll player_length :interval "1s" "bash ~/.config/eww/scripts/player.sh length")
+(defpoll player_position :interval "1s" "bash ~/.config/eww/scripts/player.sh position")
+(defpoll player_format_position :interval "1s" "playerctl position --format \"{{duration(position) }}\"")
+(defpoll player_format_length :interval "10s" "playerctl metadata --format \"{{duration(mpris:length) }}\"")
+
+(deflisten current_window :initial "..." "sh ~/.config/eww/scripts/get-window-title")
+
+(deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces")
+(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace")
+(defpoll cover_downloader :interval "1s" "bash ~/.config/eww/scripts/player.sh download")
+
+(defwidget panel_workspaces [] 
+ (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
+    (box :space-evenly true
+      (label :text "${workspaces} y${current_workspace}" :visible false)
+      (for workspace in workspaces
+        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+          (box :class "workspace-entry-${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+            (label :text {workspace.id == current_workspace ? " "
+            : "${workspace.windows > 0 ? " " : " "}"})
+            )
+          )
+        )
+      )
+    )
 )

@@ -1,125 +1,116 @@
-(defwidget panel_workspaces [] 
-	(box
-		(eventbox 
-			(box
-				:space-evenly "false"
-				(for workspace in {workspaces.workspaces}
-					(button
-						:class "button"
-						:onclick "hyprctl dispatch workspace ${workspace.id}"
-						(label :class "icon" :text {workspace.id != workspaces.active ? "${workspace.windows > 0 ? "" : ""}" : ""})
-					)
-				)
-			)
-		)
-	)
-)
-
 (defwindow bar
-	:monitor 0
-	:geometry (geometry	
-						:width "98%"
-						:y "20px"
-					   	:anchor "top center")
-	:stacking "fg"
-	:exclusive "true"
-	:reserve (struts :distance "40px" :side "top")
-	:windowtype "dock"
-	:wm-ignore false
-	(bar)
-)
-
-(defwindow bar-2
-	:monitor 1
-	:geometry (geometry	
-						:width "98%"
-						:y "20px"
-					   	:anchor "top center")
-	:stacking "fg"
-	:exclusive "true"
-	:reserve (struts :distance "40px" :side "top")
-	:windowtype "dock"
-	:wm-ignore false
-	(bar)
-)
-
-(defwindow bar-3
-	:monitor 2
-	:geometry (geometry	
-						:width "98%"
-						:y "20px"
-					   	:anchor "top center")
-	:stacking "fg"
-	:exclusive "true"
-	:reserve (struts :distance "40px" :side "top")
-	:windowtype "dock"
-	:wm-ignore false
-	(bar)
+    :monitor 0
+    :geometry (geometry
+        :width "100%"
+        :y "0px"
+        :anchor "top center")
+    :stacking "fg"
+    :exclusive "true"
+    :reserve (struts :distance "40px" :side "top")
+    :windowtype "dock"
+    :wm-ignore false
+    (bar)
 )
 
 (defwidget bar-left []
-	(box
-		:space-evenly false
-		:spacing  20
-		:class "bar-left"
-		:halign "start"
-
-		(box 
-			:class "workspaces"
-			(panel_workspaces)
-		)
-
-		(box
-			:class "lyrics"
-			:css "${lyrics == "" ? ".lyrics { background-color: rgba(0,0,0,0); }" : ".lyrics { background-color: rgba(0,0,0,0.75); }"}"
-			(label 
-				:text "${lyrics}"
-                                :limit-width 75
-			)
-		)
-	)
+    (box
+        :space-evenly false
+        :class "bar-left"
+        :halign "start"
+        (box
+            :space-evenly false
+            :spacing 10
+            (box
+                :class "workspaces"
+                (panel_workspaces)
+            )
+            (button
+                :onclick "eww open --toggle music"
+                :class "music"
+                :css "${lyrics == "" ? "${title == "" ? ".music
+                { background-color: rgba(0,0,0,0);}" : ".music { background-color:
+                rgba(255,255,255,0.9);}"}" : ".music { background-color:
+                rgba(255,255,255,0.9);"}"
+                (lyrics)
+            )
+        )
+    )
 )
 
 (defwidget bar-right []
-	(button
-		:tooltip "hehe"
-	 	:class "bar-right"
-	 	:halign "end"
-		:onclick "./scripts/toggle_eww.sh menu_settings"
-		(box 
-		 	:space-evenly false
-			:spacing 10
-			(label :text "${current_window == "" ? "Desktop " : "${current_window}"}")
-			(label :text "🔋 ${EWW_BATTERY["BAT0"].capacity}%")
-		)
-	)
+    (box
+        :class "bar-right"
+        :halign "end"
+        :onclick "eww open --toggle menu_settings"
+        (box
+            :space-evenly false
+            :spacing 10
+            (label
+             :text "${current_window == "" ? "Desktop " : "${current_window}"}"
+             :limit-width 75
+            )
+            (box
+                :class "utils"
+                :tooltip "hehe"
+                :onclick "eww open --toggle menu_settings"
+                (box
+                 (volume)
+                 (battery)
+                )
+            )
+        )
+    )
+)
+
+(defwidget lyrics []
+    (label
+        :text "${lyrics == "" ? "${title == "" ? "" : "${artist} - ${title}"}" : "${lyrics}"}"
+        :text-width 75
+    )
+)
+
+(defwidget battery []
+    (label :text "
+       ${EWW_BATTERY["BAT0"].capacity > 90 ? "󰁹"
+    : "${EWW_BATTERY["BAT0"].capacity > 80 ? "󰂂"
+    : "${EWW_BATTERY["BAT0"].capacity > 70 ? "󰂁"
+    : "${EWW_BATTERY["BAT0"].capacity > 60 ? "󰂀"
+    : "${EWW_BATTERY["BAT0"].capacity > 50 ? "󰁿"
+    : "${EWW_BATTERY["BAT0"].capacity > 40 ? "󰁾"
+    : "${EWW_BATTERY["BAT0"].capacity > 30 ? "󰁽"
+    : "${EWW_BATTERY["BAT0"].capacity > 20 ? "󰁼"
+    : "${EWW_BATTERY["BAT0"].capacity > 10 ? "󰁻"
+    : "󰁺"
+    }"}"}"}"}"}"}"}"} ${EWW_BATTERY["BAT0"].capacity}")
+)
+
+(defwidget volume []
+    (eventbox
+        :onclick "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+        :onscroll "bash scripts/volume.sh {}"
+         (label :text "
+          ${current_volume_mute == "yes" ? "󰝟"
+          : "${current_volume > 45 ? "󰕾  ${current_volume}"
+          : "${current_volume > 15 ? "󰖀  ${current_volume}"
+          : "󰕿  ${current_volume}"
+          }"}"} ")
+    )
 )
 
 (defwidget bar-center []
-	(box 
-		:class "bar-center"
-		:halign "center"
-		:space-evenly false
-		:spacing 0
-
-		time
-	)
+    (box
+        :class "bar-center"
+        :halign "center"
+        :space-evenly false
+        :spacing 0
+        time
+    )
 )
 
 (defwidget bar []
-	(centerbox
-		:space-evenly true
-		(box
-			:width "100%"
-			(bar-left)
-		)
-		(box
-			:width "1%"
-			(bar-center)
-		)
-		(box
-			:width "100%"
-			(bar-right)
-		)
-	)
+    (centerbox
+        (bar-left)
+        (bar-center)
+        (bar-right)
+    )
 )

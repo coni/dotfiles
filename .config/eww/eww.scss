@@ -1,91 +1,41 @@
-.button
-{
-	background-color: rgba(0, 0, 0, 0);
-	border-color: rgba(0, 0, 0, 0);
-}
-
-
-.bar
-{
-	background-color: rgba(0,0,0,0);
-	font-size: 15px;
-	font-weight: bold;
-}
-
-.bar-2
-{
-	background-color: rgba(0,0,0,0);
-	font-size: 15px;
-	font-weight: bold;
-}
-
-.bar-3
-{
-	background-color: rgba(0,0,0,0);
-	font-size: 15px;
-	font-weight: bold;
-}
-
-.bar-center
-{
-	border-radius: 9px;
-	background-color: rgba(0,0,0,0.75);
-	padding: 7px;
-}
-
-.bar-right
-{
-	border-radius: 9px;
-	background-color: rgba(0,0,0,0.75);
-	padding: 7px;
-}
-
-.bar-left
-{
-	background-color: rgba(0, 0, 0, 0);
-}
-
-.workspaces
-{
-	padding: 0px 7px;
-	border-radius: 9px;
-	background-color: rgba(0,0,0,0.75);
-}
-
-.lyrics
-{
-	padding: 0px 7px;
-	border-radius: 9px;
-	background-color: rgba(0,0,0,0.75);
-}
+@import "windows/bar/bar.scss"
+@import "windows/bar-2/bar-2.scss"
+@import "windows/music/music.scss"
 
 .settings_button
 {
-	background-color: rgba(0, 0, 0, 0);
-	border-color: rgba(0, 0, 0, 0);
-	font-weight: bold;
-	font-size: 25px;	
-	padding: 10px;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0);
+  font-size: 25px;	
+  padding: 10px;
+  font-weight: bold;
 }
 
 .menu_settings
 {
-	background-color: rgba(0, 0, 0, 0);
-	border-color: rgba(0, 0, 0, 0);
-	border-radius: 9px;
-	font-weight: bold;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 0);
+  border-radius: 9px;
+  font-weight: bold;
 }
 
 .menu
 {
-	padding: 7px;
-	background-color: rgba(0, 0, 0, 0.75);
-	border-color: rgba(0, 0, 0, 0);
-	border-radius: 9px;
+  padding: 7px;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-color: rgba(0, 0, 0, 0);
+  border-radius: 9px;
+  font-weight: bold;
 }
 
 .scale
 {
-	border-color: rgba(0, 0, 0, 1);
-	padding: 7px;
+  border-color: rgba(0, 0, 0, 1);
+  padding: 7px;
+  font-weight: bold;
+}
+
+button
+{
+  background-color: rgba(0,0, 0, 0);
 }

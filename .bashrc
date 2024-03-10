@@ -12,8 +12,9 @@ export LANG=en_US.UTF-8
 export NNN_OPTS="H"
 export NNN_PLUG='h:preview-tabbed;i:renamer;c:cdpath;a:autojump'
 export _JAVA_AWT_WM_NONREPARENTING=1
-export GTK_THEME=rose-pine-dawn-gtk
+# export GTK_THEME=damn
 export EDITOR=vim
+
 
 if [ -f "$HOME/.bash/aliases" ];then
     source $HOME/.bash/aliases
@@ -30,7 +31,6 @@ fi
 [[ $- != *i* ]] && return
 
 alias ls='ls --color=auto'
-PS1='\[\033]0;\u@\h:\w\007\]\[\033[01;31m\]\u@\h\[\033[01;34m\] \w \n$\[\033[00m\] '
 export PGDATA="$HOME/postgres_data"
 export PGHOST="/tmp"
 
@@ -39,3 +39,6 @@ alias j!=jbang
 export PATH="$HOME/.jbang/bin:$HOME/.jbang/currentjdk/bin:$PATH"
 export JAVA_HOME=$HOME/.jbang/currentjdk
 export DB_USERNAME=coni
+
+export EWW_BAR=bar
+PS1='\[\033]0;\u@\w:\w\007\]\[\033[01;31m\]\u@\h\[\033[01;34m\] \w \n$\[\033[00m\] '

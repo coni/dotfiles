@@ -1,3 +1,11 @@
+call plug#begin('~/.vim/plugged')
+    Plug 'preservim/nerdtree'
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'tpope/vim-commentary'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'ryanoasis/vim-devicons'
+call plug#end()
+
 "-----------KEYMAPS-------------
 "only builtin
 noremap <C-s> :w<cr>
@@ -11,7 +19,8 @@ nnoremap <C-f> :FZF<CR>
 nnoremap <C-j> 10j
 nnoremap <C-k> 10k
 nnoremap <C-h> :set number!<cr>
-nnoremap <C-b> :call ToggleNetrw()<cr>
+" nnoremap <C-b> :call ToggleNetrw()<cr>
+nnoremap <C-b> :NERDTreeToggle<CR>
 " nnoremap <C-a> :call StripWhitespace()<cr>
 nnoremap <C-S-h> :wq<cr>
 nnoremap <F2> :set invpaste paste?<CR>
@@ -20,6 +29,24 @@ nnoremap <C-@> :call system("wl-copy", @")<CR>
 vnoremap < <gv
 vnoremap > >gv
 set pastetoggle=<F2>
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+inoremap <silent><expr> <c-@> coc#refresh()
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 "set omnifunc=ale#completion#OmniFunc
 "let b:ale_fixers = {'c': ['gcc']}
 
@@ -92,15 +119,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin('~/.vim/plugged')
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-    Plug 'tpope/vim-commentary'
-    Plug 'vim-scripts/Tabmerge'
-    Plug 'FredKSchott/CoVim'
-    "Plug 'dense-analysis/ale'
-call plug#end()
-let g:deoplete#enable_at_startup = 1
-
 let g:NetrwIsOpen=0
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
@@ -164,17 +182,6 @@ function MoveToNextTab()
   else
     close!
     tabnew
-  endif
-endfunction
-
-let s:syntax = 1
-function! ToggleSyntax()
-  if s:syntax == 1
-    syntax off
-    let s:syntax = 0
-  else
-    syntax on
-    let s:syntax = 1
   endif
 endfunction
 
