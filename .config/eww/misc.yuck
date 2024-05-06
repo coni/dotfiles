@@ -1,0 +1,35 @@
+(defwidget lyrics []
+    (label
+        :text "${lyrics == "" ? "${title == "" ? "" : "${artist} - ${title}"}" : "${lyrics}"}"
+        :text-width 75
+    )
+)
+
+(defwidget battery []
+    (label :text "
+    ${EWW_BATTERY["BAT0"].status == "Charging" ? "󰂄" 
+    : "${EWW_BATTERY["BAT0"].capacity > 90 ? "󰁹"
+    : "${EWW_BATTERY["BAT0"].capacity > 80 ? "󰂂"
+    : "${EWW_BATTERY["BAT0"].capacity > 70 ? "󰂁"
+    : "${EWW_BATTERY["BAT0"].capacity > 60 ? "󰂀"
+    : "${EWW_BATTERY["BAT0"].capacity > 50 ? "󰁿"
+    : "${EWW_BATTERY["BAT0"].capacity > 40 ? "󰁾"
+    : "${EWW_BATTERY["BAT0"].capacity > 30 ? "󰁽"
+    : "${EWW_BATTERY["BAT0"].capacity > 20 ? "󰁼"
+    : "${EWW_BATTERY["BAT0"].capacity > 10 ? "󰁻"
+    : "󰁺"
+    }"}"}"}"}"}"}"}"}"} ${EWW_BATTERY["BAT0"].capacity}")
+)
+
+(defwidget volume []
+    (eventbox
+        :onclick "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+        :onscroll "bash scripts/volume.sh {}"
+         (label :text "
+          ${current_volume_mute == "yes" ? "󰝟"
+          : "${current_volume > 45 ? "󰕾  ${current_volume}"
+          : "${current_volume > 15 ? "󰖀  ${current_volume}"
+          : "󰕿  ${current_volume}"
+          }"}"} ")
+    )
+)

@@ -2,6 +2,8 @@
 (include "windows/bar-2/bar-2.yuck")
 (include "windows/menu_settings/menu_settings.yuck")
 (include "windows/music/music.yuck")
+(include "misc.yuck")
+
 
 (defpoll time
                 :interval "15s"
@@ -23,12 +25,12 @@
 )
 
 (defpoll current_volume
-    :interval "0.1s"
+    :interval "1s"
     `scripts/volume.sh get`
 )
 
 (defpoll current_volume_mute
-    :interval "0.1s"
+    :interval "1s"
     `scripts/volume.sh is_mute`
 )
 

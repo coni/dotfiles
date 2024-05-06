@@ -48,7 +48,7 @@ gen_test()
     echo "testhehe \"$result\" \"$1\"" >> test.sh
 }
 
-alias pipi="cd $HOME/dev/epita/"
+alias pipi="cd $HOME/dev/epita/ing1/"
 alias g=$PISCINE_COMPILATION
 alias tg="$PISCINE_COMPILATION $TEST_MAIN"
 alias gm="git commit -m"

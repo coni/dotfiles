@@ -4,6 +4,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-commentary'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'ryanoasis/vim-devicons'
+    Plug 'github/copilot.vim'
 call plug#end()
 
 "-----------KEYMAPS-------------
@@ -29,6 +30,8 @@ nnoremap <C-@> :call system("wl-copy", @")<CR>
 vnoremap < <gv
 vnoremap > >gv
 set pastetoggle=<F2>
+nnoremap <C-o> :Copilot panel<CR>
+
 inoremap <silent><expr> <TAB>
       \ coc#pum#visible() ? coc#pum#next(1) :
       \ CheckBackspace() ? "\<Tab>" :
@@ -60,6 +63,7 @@ set nocompatible
 filetype on
 syntax on
 colorscheme rosepine
+" colorscheme catppuccin_frappe
 filetype plugin indent on
 set noruler
 set mouse=a

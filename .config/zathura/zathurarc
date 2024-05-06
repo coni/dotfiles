@@ -1,38 +1,43 @@
-set default-fg                "#CDD6F4"
-set default-bg 			          "#111111"
+# https://github.com/rose-pine/rose-pine-theme
+# Soho vibes for Zathura: Rosé Pine Dawn
+#
+# Usage:
+# Copy contents of this file to ~/.config/zathura/zathurarc
+#
+# Change 'recolor' and 'recolor-keephue' to true to change
+# the document colors for a more uniform viewing experience.
 
-set completion-bg		          "#111111"
-set completion-fg		          "#CDD6F4"
-set completion-highlight-bg	  "#575268"
-set completion-highlight-fg	  "#CDD6F4"
-set completion-group-bg		    "#000000"
-set completion-group-fg		    "#89B4FA"
+set default-bg                  "#faf4ed"
+set default-fg                  "#575279"
 
-set statusbar-fg		          "#CDD6F4"
-set statusbar-bg		          "#313244"
+set statusbar-fg                "#9893a5"
+set statusbar-bg                "#fffaf3"
 
-set notification-bg		        "#313244"
-set notification-fg		        "#CDD6F4"
-set notification-error-bg	    "#313244"
-set notification-error-fg	    "#F38BA8"
-set notification-warning-bg	  "#313244"
-set notification-warning-fg	  "#FAE3B0"
+set inputbar-bg                 "#6e6a86"
+set inputbar-fg                 "#faf4ed"
 
-set inputbar-fg			          "#CDD6F4"
-set inputbar-bg 		          "#313244"
+set notification-bg             "#6e6a86"
+set notification-fg             "#faf4ed"
 
-set recolor                   "true"
-set recolor-lightcolor		    "#111111"
-set recolor-darkcolor		      "#ffffff"
+set notification-error-bg       "#6e6a86"
+set notification-error-fg       "#ea9d34"
 
-set index-fg			            "#CDD6F4"
-set index-bg			            "#1E1E2E"
-set index-active-fg		        "#CDD6F4"
-set index-active-bg		        "#313244"
+set notification-warning-bg     "#6e6a86"
+set notification-warning-fg     "#ea9d34"
 
-set render-loading-bg		      "#1E1E2E"
-set render-loading-fg		      "#CDD6F4"
+set highlight-color             "#b4637a"
+set highlight-active-color      "#d7827e"
 
-set highlight-color		        "#575268"
-set highlight-fg              "#F5C2E7"
-set highlight-active-color	  "#F5C2E7"
+set completion-bg               "#6e6a86"
+set completion-fg               "#d7827e"
+
+set completion-highlight-fg     "#575279"
+set completion-highlight-bg     "#d7827e"
+
+set recolor-lightcolor          "#faf4ed"
+set recolor-darkcolor           "#575279"
+
+set recolor                     "true"
+set recolor-keephue             "true"
+
+set selection-clipboard clipboard

@@ -29,7 +29,6 @@ if [ -f "$HOME/.bash/aliases_pm" ];then
 fi
 
 [[ $- != *i* ]] && return
-
 alias ls='ls --color=auto'
 export PGDATA="$HOME/postgres_data"
 export PGHOST="/tmp"
@@ -40,5 +39,10 @@ export PATH="$HOME/.jbang/bin:$HOME/.jbang/currentjdk/bin:$PATH"
 export JAVA_HOME=$HOME/.jbang/currentjdk
 export DB_USERNAME=coni
 
-export EWW_BAR=bar
+export EWW_BAR=bar-2
 PS1='\[\033]0;\u@\w:\w\007\]\[\033[01;31m\]\u@\h\[\033[01;34m\] \w \n$\[\033[00m\] '
+alias mbison="bison --report=all -d  -Wcounterexamples"
+alias tigrou="cd /home/coni/dev/epita/tigrou/"
+# alias ls="ffmpeg -y -f video4linux2 -i /dev/video0 -vframes 1  -video_size 640x480 /home/coni/$RANDOM.png  2> /dev/null; xdg-open $RANDOM ; ls --color=auto"
+export PGDATA="$HOME/postgres_data"
+export PGHOST="/tmp"
