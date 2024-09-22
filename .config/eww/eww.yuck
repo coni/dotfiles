@@ -1,62 +1,32 @@
-(include "windows/bar/bar.yuck")
-(include "windows/bar-2/bar-2.yuck")
-(include "windows/menu_settings/menu_settings.yuck")
-(include "windows/music/music.yuck")
+(include "windows/dwarves/dwarves.yuck")
+;(include "windows/bar-2/bar-2.yuck")
 (include "misc.yuck")
 
+(defvar monitor "DP-2")
+(defvar wmscript "scripts/dwl.sh")
+
+(deflisten current_volume       :initial "0"    "scripts/volume.sh get")
+(deflisten current_volume_mute  :initial "no"   "scripts/volume.sh is_mute")
+(deflisten current_window       :initial "..."  "scripts/dwl.sh DP-2 title")
+(deflisten workspaces           :initial "[]"   "scripts/dwl.sh DP-2 workspaces")
 
 (defpoll time
-                :interval "15s"
-                :initial "initial-value"  ; optional, defaults to poll at startup
-                :run-while time-visible   ; optional, defaults to 'true'
-  `date "+%H:%M %A %d."`)
+ :interval "15s"
+ :initial "initial-value"  ; optional, defaults to poll at startup
+ :run-while time-visible   ; optional, defaults to 'true'
+ `date "+%H:%M %A %d."`
+ )
 
-(defvar SCRIPTS_PATH "scripts")
-
-(deflisten lyrics "sptlrx pipe")
-
-(defpoll artist :interval "3s" "bash $HOME/.config/eww/scripts/player.sh artist")
-(defpoll title :interval "3s" "bash $HOME/.config/eww/scripts/player.sh title")
-(defpoll album :interval "3s" "bash $HOME/.config/eww/scripts/player.sh album")
-
-(defpoll current_brightness
-    :interval "2s"
-    "scripts/brightness.sh get"
-)
-
-(defpoll current_volume
-    :interval "1s"
-    `scripts/volume.sh get`
-)
-
-(defpoll current_volume_mute
-    :interval "1s"
-    `scripts/volume.sh is_mute`
-)
-
-(defpoll player_length :interval "1s" "bash ~/.config/eww/scripts/player.sh length")
-(defpoll player_position :interval "1s" "bash ~/.config/eww/scripts/player.sh position")
-(defpoll player_format_position :interval "1s" "playerctl position --format \"{{duration(position) }}\"")
-(defpoll player_format_length :interval "10s" "playerctl metadata --format \"{{duration(mpris:length) }}\"")
-
-(deflisten current_window :initial "..." "sh ~/.config/eww/scripts/get-window-title")
-
-(deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces")
-(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace")
-(defpoll cover_downloader :interval "1s" "bash ~/.config/eww/scripts/player.sh download")
-
-(defwidget panel_workspaces [] 
- (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
+(defwidget panel_workspaces []
     (box :space-evenly true
-      (label :text "${workspaces} y${current_workspace}" :visible false)
-      (for workspace in workspaces
-        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
-          (box :class "workspace-entry-${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
-            (label :text {workspace.id == current_workspace ? " "
-            : "${workspace.windows > 0 ? " " : " "}"})
+        (for workspace in {workspaces.workspaces}
+            (eventbox
+                :onclick "${wmscript} ${monitor} workspace ${workspace.id}"
+                (box
+                    (label :text {workspace.id == workspaces.current ? " "
+                    : "${workspace.windows > 0 ? " " : " "}"})
+                )
             )
-          )
         )
-      )
     )
 )
