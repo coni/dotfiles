@@ -1,6 +1,6 @@
-@import "../../style/colors.scss"
+@import "../../style/porcelain-colors.scss"
 
-.dwarves
+.porcelain
 {
   font-family: $font;
   color: $text;
@@ -11,13 +11,17 @@
   font-size: 17px;
 }
 
-.dwarves-center
+.porcelain-center
 {
+  font-weight: normal;
+  font-size: 21px;
   font-family: $fontAlt;
 }
 
-.dwarves-window_title
+.porcelain-window_title
 {
+  font-weight: normal;
+  font-size: 21px;
   font-family: $fontAlt;
 }
 
@@ -26,7 +30,7 @@
   padding: $padding;
 }
 
-.dwarves-utils
+.porcelain-utils
 {
   background-color: $backgroundAlt;
   color: $textAlt;

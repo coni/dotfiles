@@ -10,7 +10,7 @@ if [ "$2" == "title" ];
 then
     while read line;
     do
-        grep title <<< "$line" > /dev/null
+        grep appid <<< "$line" > /dev/null
         if [ "$?" -eq "0" ];
         then
             cut -d ' ' -f2- <<< "$line"

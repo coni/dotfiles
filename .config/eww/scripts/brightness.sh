@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 #
 # if the script doesn't work you have to adapt it for your need, im sorry
 # xoxo

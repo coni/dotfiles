@@ -1,21 +1,26 @@
-(include "windows/dwarves/dwarves.yuck")
-;(include "windows/bar-2/bar-2.yuck")
+;(include "windows/dwarves/dwarves.yuck")
+(include "windows/porcelain/porcelain.yuck")
+(include "windows/bar-2/bar-2.yuck")
 (include "misc.yuck")
 
 (defvar monitor "DP-2")
 (defvar wmscript "scripts/dwl.sh")
+(defvar bluetooth_toggle "bash scripts/bluetooth.sh toggle")
+
+(deflisten current_window       :initial "..."  "scripts/dwl.sh DP-2 title")
+(deflisten workspaces           :initial "[]"   "scripts/dwl.sh DP-2 workspaces")
 
 (deflisten current_volume       :initial "0"    "scripts/volume.sh get")
 (deflisten current_volume_mute  :initial "no"   "scripts/volume.sh is_mute")
-(deflisten current_window       :initial "..."  "scripts/dwl.sh DP-2 title")
-(deflisten workspaces           :initial "[]"   "scripts/dwl.sh DP-2 workspaces")
+(deflisten network              :initial "{}"   "scripts/network.sh")
+(deflisten bluetooth            :initial "{}"   "scripts/bluetooth.sh monitor")
 
 (defpoll time
  :interval "15s"
  :initial "initial-value"  ; optional, defaults to poll at startup
  :run-while time-visible   ; optional, defaults to 'true'
- `date "+%H:%M %A %d."`
- )
+ `date "+%H:%M  %A  %d."`
+)
 
 (defwidget panel_workspaces []
     (box :space-evenly true
@@ -23,8 +28,8 @@
             (eventbox
                 :onclick "${wmscript} ${monitor} workspace ${workspace.id}"
                 (box
-                    (label :text {workspace.id == workspaces.current ? " "
-                    : "${workspace.windows > 0 ? " " : " "}"})
+                    (label :text {workspace.id == workspaces.current ? " "
+                    : "${workspace.windows > 0 ? " " : "󱍿 "}"})
                 )
             )
         )

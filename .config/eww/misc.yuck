@@ -20,9 +20,28 @@
         :onscroll "bash scripts/volume.sh {}"
          (label :text "
           ${current_volume_mute == "yes" ? "󰝟"
-          : "${current_volume > 45 ? "󰕾  ${current_volume}"
-          : "${current_volume > 15 ? "󰖀  ${current_volume}"
-          : "󰕿  ${current_volume}"
-          }"}"} ")
+          : "${current_volume > 55 ? "󰕾  ${current_volume}"
+          : "${current_volume > 25 ? "󰖀 ${current_volume}"
+          : "${current_volume > 0 ? "󰕿 ${current_volume}"
+          : "󰝟"
+          }"}"}"} ")
+    )
+)
+
+(defwidget network []
+    (label
+        :text "${network.eth == "false" ? "" : "󰈀 " }${network.airplane == "false" ? "${network.wifi == "true" ? "󰤨"
+        : "󰤭" }" : "󰀝" }"
+    )
+)
+
+(defwidget bluetooth []
+    (eventbox
+        :onclick "${bluetooth_toggle}"
+
+        (label
+         :text "${bluetooth.power == "false" ? "󰂲" : "${bluetooth.devices == "0"
+         ? "󰂯" : ""}"}"
+        )
     )
 )

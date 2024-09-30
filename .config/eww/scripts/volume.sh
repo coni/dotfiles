@@ -1,13 +1,4 @@
-#!/usr/bin/env bash
-#
-# if the script doesn't work you have to adapt it for your need, im sorry
-# xoxo
-#
-# the argument 'get' must print the integer of the volume of the current audio device
-# between 0 and 100
-#
-# the argument 'set' take as a parameter an int between 0 and 100
-#
+#!/bin/sh
 
 arg=$1
 parameter=$2
