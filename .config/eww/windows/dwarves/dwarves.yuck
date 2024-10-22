@@ -1,0 +1,75 @@
+; azuki_font and misc.yuck is required
+
+
+(defwindow dwarves
+    :monitor 1
+    :geometry (geometry
+        :width "100%"
+        :y "0px"
+        :anchor "top center")
+    :stacking "fg"
+    :exclusive "true"
+    :reserve (struts :distance "40px" :side "top")
+    :windowtype "dock"
+    :wm-ignore false
+    (dwarves)
+)
+
+(defwidget dwarves-left []
+    (box
+        :space-evenly false
+        :class "dwarves-left"
+        :halign "start"
+        (box
+            :space-evenly false
+            :spacing 10
+            (box
+                :class "workspaces"
+                (panel_workspaces)
+            )
+        )
+    )
+)
+
+(defwidget dwarves-right []
+    (box
+        :class "dwarves-right"
+        :halign "end"
+        (box
+            :space-evenly false
+            :spacing 15
+            (label
+             :class "dwarves-window_title"
+             :text "${current_window == "title" ? "Desktop " : "${current_window}"}"
+             :limit-width 75
+            )
+            (box
+                :spacing 0
+                :class "dwarves-utils"
+                :space-evenly true
+                :width 115
+                :prepend-new false
+                 (volume)
+                 (battery)
+            )
+        )
+    )
+)
+
+(defwidget dwarves-center []
+    (box
+        :class "dwarves-center"
+        :halign "center"
+        :space-evenly false
+        :spacing 0
+        time
+    )
+)
+
+(defwidget dwarves []
+    (centerbox
+        (dwarves-left)
+        (dwarves-center)
+        (dwarves-right)
+    )
+)

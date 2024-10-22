@@ -1,0 +1,79 @@
+; azuki_font and misc.yuck is required
+
+(defwindow porcelain
+    :geometry (geometry
+        :width "100%"
+        :y "0px"
+        :anchor "top center")
+    :stacking "fg"
+    :exclusive "true"
+    :reserve (struts :distance "40px" :side "top")
+    :windowtype "dock"
+    :wm-ignore true
+    (porcelain)
+)
+
+(defwidget porcelain-left []
+    (box
+        :space-evenly false
+        :class "porcelain-left"
+        :halign "start"
+        (box
+            :space-evenly false
+            :spacing 10
+            (box
+                :class "workspaces"
+                (panel_workspaces)
+            )
+        )
+    )
+)
+
+(defwidget porcelain-right []
+    (box
+        :class "porcelain-right"
+        :halign "end"
+        (box
+            :space-evenly false
+            :spacing 15
+            (label
+             :class "porcelain-window_title"
+             :text "${current_window == "appid" ? "Desktop " : "${current_window}"}"
+             :limit-width 75
+            )
+            (box
+                :space-evenly true
+                :class "porcelain-utils"
+                :width 80
+                 (volume)
+                 (battery)
+            )
+            (box
+                :spacing 10
+                :space-evenly true
+                :class "porcelain-utils"
+                :width 60
+                (network)
+                (bluetooth)
+            )
+        )
+    )
+)
+
+(defwidget porcelain-center []
+    (box
+        :class "porcelain-center"
+        :halign "center"
+        :space-evenly false
+        :spacing 0
+        time
+    )
+)
+
+(defwidget porcelain []
+    (centerbox
+        (porcelain-left)
+        (porcelain-center)
+        (porcelain-right)
+    )
+)

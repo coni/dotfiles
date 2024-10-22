@@ -1,0 +1,18 @@
+(defvar wmscript "scripts/dwl.sh")
+
+(deflisten current_window       :initial "..."  "scripts/dwl.sh title")
+(deflisten workspaces           :initial "[]"   "scripts/dwl.sh workspaces")
+
+(defwidget panel_workspaces []
+    (box :space-evenly true
+        (for workspace in {workspaces.workspaces}
+            (eventbox
+                :onclick "${wmscript} workspace ${workspace.id}"
+                (box
+                    (label :text {workspace.id == workspaces.current ? " "
+                    : "${workspace.windows > 0 ? " " : "󱍿 "}"})
+                )
+            )
+        )
+    )
+)

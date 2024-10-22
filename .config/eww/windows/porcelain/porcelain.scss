@@ -1,0 +1,40 @@
+@import "../../style/porcelain-colors.scss"
+
+.porcelain
+{
+  font-family: $font;
+  color: $text;
+  background-color: $background;
+
+  padding: 5px;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.porcelain-center
+{
+  font-weight: normal;
+  font-size: 21px;
+  font-family: $fontAlt;
+}
+
+.porcelain-window_title
+{
+  font-weight: normal;
+  font-size: 21px;
+  font-family: $fontAlt;
+}
+
+.workspaces
+{
+  padding: $padding;
+}
+
+.porcelain-utils
+{
+  background-color: $backgroundAlt;
+  color: $textAlt;
+  border-radius: $borderRadius;
+
+  padding: $padding;
+}

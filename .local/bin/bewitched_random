@@ -1,0 +1,7 @@
+#!/bin/sh
+
+nbFiles=$((`ls -l | wc -l` - 1))
+filename=$(find $HOME/.config/bewitched_goddess-lyrics | tail -n "$(($RANDOM % $nbFiles + 1))" | head -n 1)
+
+nbLines=$(cat $filename | wc -l)
+cat $filename | tail -n "$(($RANDOM % $nbLines))" | head -n 1

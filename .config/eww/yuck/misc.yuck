@@ -1,0 +1,61 @@
+(defvar bluetooth_toggle "bash scripts/bluetooth.sh toggle")
+
+(deflisten current_volume       :initial "0"    "scripts/volume.sh get")
+(deflisten current_volume_mute  :initial "no"   "scripts/volume.sh is_mute")
+(deflisten network              :initial "{}"   "scripts/network.sh")
+(deflisten bluetooth            :initial "{}"   "scripts/bluetooth.sh monitor")
+
+(defwidget battery []
+    (label :text "
+    ${EWW_BATTERY["BAT0"].status == "Charging" ? "󰂄" 
+    : "${EWW_BATTERY["BAT0"].capacity > 90 ? "󰁹"
+    : "${EWW_BATTERY["BAT0"].capacity > 80 ? "󰂂"
+    : "${EWW_BATTERY["BAT0"].capacity > 70 ? "󰂁"
+    : "${EWW_BATTERY["BAT0"].capacity > 60 ? "󰂀"
+    : "${EWW_BATTERY["BAT0"].capacity > 50 ? "󰁿"
+    : "${EWW_BATTERY["BAT0"].capacity > 40 ? "󰁾"
+    : "${EWW_BATTERY["BAT0"].capacity > 30 ? "󰁽"
+    : "${EWW_BATTERY["BAT0"].capacity > 20 ? "󰁼"
+    : "${EWW_BATTERY["BAT0"].capacity > 10 ? "󰁻"
+    : "󰁺"
+    }"}"}"}"}"}"}"}"}"} ${EWW_BATTERY["BAT0"].capacity}")
+)
+
+(defwidget volume []
+    (eventbox
+        :onclick "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+        :onscroll "bash scripts/volume.sh {}"
+         (label :text "
+          ${current_volume_mute == "yes" ? "󰝟"
+          : "${current_volume > 55 ? "󰕾  ${current_volume}"
+          : "${current_volume > 25 ? "󰖀 ${current_volume}"
+          : "${current_volume > 0 ? "󰕿 ${current_volume}"
+          : "󰝟"
+          }"}"}"} ")
+    )
+)
+
+(defwidget network []
+    (label
+        :text "${network.eth == "false" ? "" : "󰈀 " }${network.airplane == "false" ? "${network.wifi == "true" ? "󰤨"
+        : "󰤭" }" : "󰀝" }"
+    )
+)
+
+(defwidget bluetooth []
+    (eventbox
+        :onclick "${bluetooth_toggle}"
+
+        (label
+         :text "${bluetooth.power == "false" ? "󰂲" : "${bluetooth.devices == "0"
+         ? "󰂯" : ""}"}"
+        )
+    )
+)
+
+(defpoll time
+    :interval "15s"
+    :initial "initial-value"  ; optional, defaults to poll at startup
+    :run-while time-visible   ; optional, defaults to 'true'
+    `date "+%H:%M  %A  %d."`
+)

@@ -1,0 +1,16 @@
+(deflisten current_window       :initial "..."  "scripts/hyprland.sh title")
+(deflisten workspaces :initial "[]" "bash scripts/hyprland.sh workspaces")
+(deflisten current_workspace :initial "1" "bash scripts/hyprland.sh active-workspace")
+
+(defwidget panel_workspaces []
+    (eventbox :onscroll "bash scripts/hyprland.sh workspace {} ${current_workspace}"
+        (box
+            (for workspace in workspaces
+                (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+                    (label :text {workspace.id == current_workspace? " "
+                            : "${workspace.windows > 0 ? " " : "󱍿 "}"})
+                )
+            )
+        )
+    )
+)

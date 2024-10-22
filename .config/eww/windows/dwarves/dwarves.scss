@@ -1,0 +1,38 @@
+@import "../../style/colors.scss"
+
+.dwarves
+{
+  font-family: $font;
+  color: $text;
+  background-color: $background;
+
+  padding: 5px;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.dwarves-center
+{
+  font-family: $fontAlt;
+}
+
+.dwarves-window_title
+{
+  font-family: $fontAlt;
+}
+
+.workspaces
+{
+  padding: $padding;
+}
+
+.dwarves-utils
+{
+  background-color: $backgroundAlt;
+  color: $textAlt;
+  border-radius: $borderRadius;
+  border: $border;
+  border-width: $borderWidth;
+
+  padding: $padding;
+}

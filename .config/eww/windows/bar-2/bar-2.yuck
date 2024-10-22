@@ -1,0 +1,80 @@
+(defwindow bar-2
+    :monitor 0
+    :geometry (geometry
+        :width "98%"
+        :y "20px"
+        :anchor "top center")
+    :stacking "fg"
+    :exclusive "true"
+    :reserve (struts :distance "40px" :side "top")
+    :windowtype "dock"
+    :wm-ignore false
+    (bar-2)
+)
+
+(defwidget bar-2-left []
+    (box
+        :space-evenly false
+        :spacing  20
+        :class "bar-2-left"
+        :halign "start"
+
+        (box 
+            :class "workspaces-2"
+            (panel_workspaces)
+        )
+    )
+)
+
+
+(defwidget bar-2-right []
+    (box
+        :tooltip "hehe"
+        :class "bar-2-right"
+        :halign "end"
+        :onclick "./scripts/toggle_eww.sh menu_settings"
+        (box
+            :space-evenly false
+            :spacing 10
+            (label
+                :text "${current_window == "title" ? "" : "${current_window}"}"
+                :limit-width 75
+            )
+                (systray
+                    :width 90
+                 (volume)
+                 (battery)
+                )
+        )
+    )
+)
+
+
+(defwidget bar-2-center []
+    (box 
+        :class "bar-2-center"
+        :halign "center"
+        :space-evenly false
+        :spacing 0
+
+        time
+    )
+)
+
+(defwidget bar-2 []
+    (centerbox
+        :space-evenly true
+        (box
+                :width "100%"
+                (bar-2-left)
+        )
+        (box
+                :width "1%"
+                (bar-2-center)
+        )
+        (box
+                :width "100%"
+                (bar-2-right)
+        )
+    )
+)
