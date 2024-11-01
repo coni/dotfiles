@@ -18,7 +18,7 @@
     : "${EWW_BATTERY["BAT0"].capacity > 20 ? "󰁼"
     : "${EWW_BATTERY["BAT0"].capacity > 10 ? "󰁻"
     : "󰁺"
-    }"}"}"}"}"}"}"}"}"} ${EWW_BATTERY["BAT0"].capacity}")
+    }"}"}"}"}"}"}"}"}"} ${EWW_BATTERY["BAT0"]?.capacity}")
 )
 
 (defwidget volume []
@@ -38,7 +38,7 @@
 (defwidget network []
     (label
         :text "${network.eth == "false" ? "" : "󰈀" }${network.wifi == "none" ? "" : " " }${network.wifi !=
-        "none" ? "${network.airplane != "false" ? "${network.wifi == "true" ? "󰤨" : "󰤭"}" : "󰀝" }" : "" }"
+        "none" ? "${network.airplane == false ? "${network.wifi == "true" ? "󰤨" : "󰤭"}" : "󰀝" }" : "" }"
     )
 )
 
