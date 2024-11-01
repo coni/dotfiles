@@ -42,9 +42,8 @@
              :limit-width 75
             )
             (box
-                :space-evenly true
+                :space-evenly false
                 :class "porcelain-utils"
-                :width 80
                  (volume)
                  (battery)
             )

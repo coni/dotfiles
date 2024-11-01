@@ -37,8 +37,8 @@
 
 (defwidget network []
     (label
-        :text "${network.eth == "false" ? "" : "󰈀 " }${network.airplane == "false" ? "${network.wifi == "true" ? "󰤨"
-        : "󰤭" }" : "󰀝" }"
+        :text "${network.eth == "false" ? "" : "󰈀" }${network.wifi == "none" ? "" : " " }${network.wifi !=
+        "none" ? "${network.airplane != "false" ? "${network.wifi == "true" ? "󰤨" : "󰤭"}" : "󰀝" }" : "" }"
     )
 )
 
