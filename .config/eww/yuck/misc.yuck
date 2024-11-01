@@ -7,7 +7,7 @@
 
 (defwidget battery []
     (label :text "
-    ${EWW_BATTERY["BAT0"].status == "Charging" ? "󰂄" 
+    ${EWW_BATTERY["BAT0"]?.status == "null" ? "" : "${EWW_BATTERY["BAT0"].status == "Charging" ? "󰂄"
     : "${EWW_BATTERY["BAT0"].capacity > 90 ? "󰁹"
     : "${EWW_BATTERY["BAT0"].capacity > 80 ? "󰂂"
     : "${EWW_BATTERY["BAT0"].capacity > 70 ? "󰂁"
@@ -18,7 +18,7 @@
     : "${EWW_BATTERY["BAT0"].capacity > 20 ? "󰁼"
     : "${EWW_BATTERY["BAT0"].capacity > 10 ? "󰁻"
     : "󰁺"
-    }"}"}"}"}"}"}"}"}"} ${EWW_BATTERY["BAT0"]?.capacity}")
+    }"}"}"}"}"}"}"}"}"} ${EWW_BATTERY["BAT0"]?.capacity}"}")
 )
 
 (defwidget volume []

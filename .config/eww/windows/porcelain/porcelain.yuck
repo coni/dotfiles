@@ -45,7 +45,7 @@
                 :space-evenly "${EWW_BATTERY["BAT0"]?.capacity == "null"
                 ? "false"
                 : "true"}"
-                :width "${EWW_BATTERY["BAT0"]?.capacity == "null" ? "0" : "80"}"
+                :width "${EWW_BATTERY["BAT0"]?.capacity == "null" ? "0" : "100"}"
                 :class "porcelain-utils"
                  (volume)
                  (battery)
