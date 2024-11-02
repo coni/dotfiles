@@ -1,11 +1,7 @@
 #!/bin/sh
 
-if [ "$#" -le "0" ];
-then
-    echo non
-fi
 
-MONITOR=`cat $HOME/.config/dwl/monitor`
+MONITOR=`cat $HOME/.config/eww/misc/monitor`
 if [ "$1" == "title" ];
 then
     while read line;
