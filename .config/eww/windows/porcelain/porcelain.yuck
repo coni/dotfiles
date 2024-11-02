@@ -43,8 +43,8 @@
             )
             (box
                 :space-evenly "${EWW_BATTERY == "" ? "false" : "true"}"
-                :width "${EWW_BATTERY == "" ? "50" : "100"}"
-                :spacing "${EWW_BATTERY == "" ? "-5" : "10"}"
+                :width "${EWW_BATTERY == "" ? "50" : "108"}"
+                :spacing "${EWW_BATTERY == "" ? "-5" : "0"}"
                 :class "porcelain-utils"
                  (volume)
                  (battery)
