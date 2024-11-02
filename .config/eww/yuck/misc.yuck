@@ -7,7 +7,7 @@
 
 (defwidget battery []
     (label :text "
-    ${EWW_BATTERY["BAT0"]?.status == "null" ? "" : "${EWW_BATTERY["BAT0"].status == "Charging" ? "󰂄"
+    ${EWW_BATTERY == "" ? "" : "${EWW_BATTERY["BAT0"].status == "Charging" ? "󰂄"
     : "${EWW_BATTERY["BAT0"].capacity > 90 ? "󰁹"
     : "${EWW_BATTERY["BAT0"].capacity > 80 ? "󰂂"
     : "${EWW_BATTERY["BAT0"].capacity > 70 ? "󰂁"
@@ -28,8 +28,8 @@
          (label :text "
           ${current_volume_mute == "yes" ? "󰝟"
           : "${current_volume > 55 ? "󰕾  ${current_volume}"
-          : "${current_volume > 25 ? "󰖀 ${current_volume}"
-          : "${current_volume > 0 ? "󰕿 ${current_volume}"
+          : "${current_volume > 25 ? "󰖀  ${current_volume}"
+          : "${current_volume > 0 ? "󰕿  ${current_volume}"
           : "󰝟"
           }"}"}"} ")
     )
@@ -45,10 +45,9 @@
 (defwidget bluetooth []
     (eventbox
         :onclick "${bluetooth_toggle}"
-
         (label
-         :text "${bluetooth.power == "false" ? "󰂲" : "${bluetooth.devices == "0"
-         ? "󰂯" : ""}"}"
+         :text "${bluetooth.power == "none" ? "" : "${bluetooth.power == "false" ? "󰂲" : "${bluetooth.devices == "0"
+         ? "󰂯" : ""}"}"}"
         )
     )
 )

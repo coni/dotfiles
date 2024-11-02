@@ -42,19 +42,20 @@
              :limit-width 75
             )
             (box
-                :space-evenly "${EWW_BATTERY["BAT0"]?.capacity == "null"
-                ? "false"
-                : "true"}"
-                :width "${EWW_BATTERY["BAT0"]?.capacity == "null" ? "0" : "100"}"
+                :space-evenly "${EWW_BATTERY == "" ? "false" : "true"}"
+                :width "${EWW_BATTERY == "" ? "50" : "100"}"
+                :spacing "${EWW_BATTERY == "" ? "-5" : "10"}"
                 :class "porcelain-utils"
                  (volume)
                  (battery)
             )
             (box
-                :spacing 10
-                :space-evenly true
+                :spacing "${bluetooth.power == "none" ? "-10" : "10"}"
+
+                ;wtf
+                ;:space-evenly "${bluetooth.power == "none" ? "true" : "true"}"
                 :class "porcelain-utils"
-                :width 60
+                :width "${bluetooth.power == "none" ? "30" : "60"}"
                 (network)
                 (bluetooth)
             )
@@ -65,7 +66,6 @@
 (defwidget porcelain-center []
     (box
         :class "porcelain-center"
-        :halign "center"
         :space-evenly false
         :spacing 0
         time
